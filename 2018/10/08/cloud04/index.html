@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="keywords" content="Cloud,Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker+Nextcloud快速部署个人网盘">
+<meta property="og:url" content="http://yoursite.com/2018/10/08/cloud04/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://image.3001.net/images/20181128/15434089674606.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20181123/15429718173586.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20181123/15429718196488.jpg">
+<meta property="og:updated_time" content="2019-08-21T02:42:30.823Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker+Nextcloud快速部署个人网盘">
+<meta name="twitter:image" content="https://image.3001.net/images/20181128/15434089674606.jpg">
+  <link rel="canonical" href="http://yoursite.com/2018/10/08/cloud04/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Docker+Nextcloud快速部署个人网盘 | 个人博客</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">14</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">51</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/08/cloud04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="顾北清">
+      <meta itemprop="description" content="一个想打CTF的菜鸡">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">Docker+Nextcloud快速部署个人网盘
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2018-10-08 14:58:33" itemprop="dateCreated datePublished" datetime="2018-10-08T14:58:33+08:00">2018-10-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-21 10:42:30" itemprop="dateModified" datetime="2019-08-21T10:42:30+08:00">2019-08-21</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/2018/10/08/cloud04/" class="post-meta-item leancloud_visitors" data-flag-title="Docker+Nextcloud快速部署个人网盘" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/10/08/cloud04/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/10/08/cloud04/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://image.3001.net/images/20181128/15434089674606.jpg" alt></p>
+<a id="more"></a> 
+<p>各位大佬好，，，萌新顾北清又回来更新了，今天要<strong>快速</strong>部署一个人网盘。<br>有多快呢，，，5分钟吧，因为我们使用Docker部署。<br>Docker基础可以看看我之前的博文。（<span class="exturl" data-url="aHR0cDovL3d3dy5ndWJlaXFpbmcuY24vMjAxOC8wNi8wMy9kb2NrZXIwMS8=" title="http://www.gubeiqing.cn/2018/06/03/docker01/">点这里点这里<i class="fa fa-external-link"></i></span>）<br>那么，，，开始吧。</p>
+<p><strong>实验环境：小伙伴的阿里云服务器，安装的是Centos7的系统，要安装的网盘叫<code>Nextcloud</code></strong></p>
+<p>下面开始安装<br><strong>第一步</strong><br>老规矩，先安装<code>Docker</code>环境.<br>命令如下：</p>
+<pre><code>[root@izt8mvnno1ny1dz ~]# yum install -y docker
+Loaded plugins: fastestmirror
+base                                                                                                                                    | 3.6 kB  00:00:00
+epel                                                                                                                                    | 3.2 kB  00:00:00
+extras                                                                                                                                  | 3.4 kB  00:00:00
+updates                                                                                                                                 | 3.4 kB  00:00:00
+Loading mirror speeds from cached hostfile
+Package 2:docker-1.13.1-74.git6e3bb8e.el7.centos.x86_64 already installed and latest version
+Nothing to do</code></pre><p>我这里已经安装完成就不重复安装了。<br>启动docker并设置自启：</p>
+<pre><code>[root@izt8mvnno1ny1dz ~]# systemctl start docker
+[root@izt8mvnno1ny1dz ~]# systemctl enable docker</code></pre><p><strong>第二步</strong><br>查找<code>Nextcloud</code>网盘的镜像</p>
+<pre><code>[root@izt8mvnno1ny1dz ~]# docker search nextcloud
+INDEX       NAME                                      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+docker.io   docker.io/nextcloud                       A safe home for all your data                   561       [OK]
+docker.io   docker.io/linuxserver/nextcloud           A Nextcloud container, brought to you by L...   81
+docker.io   docker.io/greyltc/nextcloud               Nextcloud: a safe home for all your data. ...   38                   [OK]
+docker.io   docker.io/wonderfall/nextcloud            All-in-one alpine-based Nextcloud image.        36                   [OK]
+docker.io   docker.io/rootlogin/nextcloud             Nextcloud docker image running on top of N...   17                   [OK]
+docker.io   docker.io/lsioarmhf/nextcloud             ARMHF based Linuxserver.io image of nextcloud   9
+docker.io   docker.io/arm32v7/nextcloud               A safe home for all your data                   8
+docker.io   docker.io/benyanke/nextcloud              Fork of wonderfall/nextcloud, since it is ...   7                    [OK]
+docker.io   docker.io/ownyourbits/nextcloudpi         NextCloud ARM docker container                  7
+docker.io   docker.io/sameersbn/nextcloud             Dockerized Nextcloud                            7                    [OK]
+docker.io   docker.io/ownyourbits/nextcloudpi-armhf   NextCloudPi ARM docker container                6
+docker.io   docker.io/hoellen/nextcloud               Based on wonderfall/nextcloud                   5                    [OK]
+docker.io   docker.io/aheimsbakk/nextcloud            DEPRECATED in favor of the Nextcloud webin...   2                    [OK]
+docker.io   docker.io/crazymax/nextcloud              Nextcloud Docker image based on Alpine Lin...   1
+docker.io   docker.io/lsioarmhf/nextcloud-aarch64     ARM64 based Linuxserver.io image of nextcl...   1
+docker.io   docker.io/zerpex/nextcloud-ocdl           Nextcloud with ocDownloader pre-requiresites    1                    [OK]
+docker.io   docker.io/avhost/docker-nextcloud         nextcloud as docker service                     0                    [OK]
+docker.io   docker.io/bunix42/nextcloud               Docker Image for Nextcloud, based on the o...   0
+docker.io   docker.io/dheaps/nextcloud-cron           Cron service for Nextcloud                      0                    [OK]
+docker.io   docker.io/ftsystems/nextcloud             Nextcloud container based on the owncloud ...   0
+docker.io   docker.io/gorlug/nextcloud                https://nextcloud.com/                          0                    [OK]
+docker.io   docker.io/sesceu/nextcloud                nextcloud with cron and imap-auth               0                    [OK]
+docker.io   docker.io/trollin/nextcloud                                                               0
+docker.io   docker.io/whatwedo/nextcloud              Nextcloud powered by Apache                     0                    [OK]
+docker.io   docker.io/zyrill/nextcloud                 Nextcloud v12 based on php:fpm-alpine          0</code></pre><p>依旧老规矩，使用官方镜像</p>
+<p><strong>第三步</strong><br>拉取官方的Docker镜像</p>
+<pre><code>[root@izt8mvnno1ny1dz ~]# docker pull docker.io/nextcloud
+Using default tag: latest
+Trying to pull repository docker.io/library/nextcloud ...
+latest: Pulling from docker.io/library/nextcloud
+802b00ed6f79: Already exists
+59f5a5a895f8: Pull complete
+6898b2dbcfeb: Pull complete
+8e0903aaa47e: Pull complete
+2961af1e196a: Pull complete
+71f7016f79a0: Pull complete
+5e1a48e5719c: Pull complete
+7ae5291984f3: Pull complete
+725b65166f31: Pull complete
+e90b121f9520: Pull complete
+b5a272809bbd: Pull complete
+f045f3ae0e2b: Pull complete
+7f51c9ea2d8e: Pull complete
+5aa9d0ed164a: Pull complete
+8eea44e2bfc7: Pull complete
+5302ebd5abce: Pull complete
+78f0335decb3: Pull complete
+1a2f85124682: Pull complete
+ed4cec78a159: Pull complete
+a68e1b656d3d: Pull complete
+d0b66f00fda7: Pull complete
+45c9777c18b5: Pull complete
+Digest: sha256:c8d1091cc86051dc5e8de0114e3121fe0562cb417c56f2644ed92838008d8806
+Status: Downloaded newer image for docker.io/nextcloud:latest</code></pre><p>镜像拉取完成</p>
+<p><strong>第四步</strong><br>容器拉取到本地之后，就该启用容器了。</p>
+<pre><code>[root@izt8mvnno1ny1dz ~]# docker run -d --restart=always --name nextcloud -p 80:80 -v /root/nextcloud:/data docker.io/nextcloud
+ae96013c7f0ab05194a4488d1fa61b1c6274c272a53b3d418418b56a88e2e230
+[root@izt8mvnno1ny1dz ~]# docker ps -a
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                NAMES
+ae96013c7f0a        docker.io/nextcloud   &quot;/entrypoint.sh ap...&quot;   6 seconds ago       Up 6 seconds        0.0.0.0:80-&gt;80/tcp   nextcloud</code></pre><p>这里可以看到已经在后台运行了，这就部署好了。</p>
+<p><strong>第五步</strong><br>在浏览器地址栏输入你的IP地址，可以访问到<code>Nextcloud</code>的<code>Web</code>页面。<br><img src="https://image.3001.net/images/20181123/15429718173586.jpg" alt><br>如果访问不到，先重启一下docker服务，命令如下：</p>
+<pre><code>[root@izt8mvnno1ny1dz ~]# systemctl restart docker</code></pre><p>如果还是不行，那么就关闭防火墙服务吧。</p>
+<pre><code>[root@izt8mvnno1ny1dz ~]# systemctl stop firewalld
+[root@izt8mvnno1ny1dz ~]# systemctl status firewalld    //查看一下防火墙状态
+● firewalld.service - firewalld - dynamic firewall daemon
+Loaded: loaded (/usr/lib/systemd/system/firewalld.service; disabled; vendor preset: enabled)
+Active: inactive (dead)
+    Docs: man:firewalld(1)
+
+Sep 20 13:44:49 izt8mvnno1ny1dz systemd[1]: Starting firewalld - dynamic firewall daemon...
+Sep 20 13:44:50 izt8mvnno1ny1dz systemd[1]: Started firewalld - dynamic firewall daemon.
+Sep 20 13:44:57 izt8mvnno1ny1dz systemd[1]: Stopping firewalld - dynamic firewall daemon...
+Sep 20 13:44:57 izt8mvnno1ny1dz systemd[1]: Stopped firewalld - dynamic firewall daemon.
+Sep 20 15:33:49 izt8mvnno1ny1dz systemd[1]: Starting firewalld - dynamic firewall daemon...
+Sep 20 15:33:49 izt8mvnno1ny1dz systemd[1]: Started firewalld - dynamic firewall daemon.
+Sep 20 15:34:58 izt8mvnno1ny1dz systemd[1]: Stopping firewalld - dynamic firewall daemon...
+Sep 20 15:34:58 izt8mvnno1ny1dz systemd[1]: Stopped firewalld - dynamic firewall daemon.</code></pre><p>接着完成完成网盘管理员账号的注册，使用默认数据库（当然，也可以起一个<code>Mysql</code>的容器，用来连接），然后完成注册，就可以登录了。<br><img src="https://image.3001.net/images/20181123/15429718196488.jpg" alt><br>这样就愉快的搭建完成了，是不是五分钟快速搭建！</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="顾北清 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.jpg" alt="顾北清 Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>顾北清</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2018/10/08/cloud04/" title="Docker+Nextcloud快速部署个人网盘">http://yoursite.com/2018/10/08/cloud04/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1IYW5z"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Cloud/" rel="tag"><i class="fa fa-tag"></i> Cloud</a>
+            
+              <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/10/08/php变量覆盖问题/" rel="next" title="foreach函数">
+                  <i class="fa fa-chevron-left"></i> foreach函数
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/10/27/docker13/" rel="prev" title="Ubuntu下使用Tim/Wechat">
+                  Ubuntu下使用Tim/Wechat <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="顾北清">
+  <p class="site-author-name" itemprop="name">顾北清</p>
+  <div class="site-description motion-element" itemprop="description">一个想打CTF的菜鸡</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1RpbWVzaS8=" title="GitHub &rarr; https://github.com/Timesi/"><i class="fa fa-fw fa-github"></i></span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vMzIxMjE3MTA0My9wcm9maWxlP3JpZ2h0bW9kPTEmd3ZyPTYmbW9kPXBlcnNvbm51bWJlcg==" title="Weibo &rarr; https://weibo.com/3212171043/profile?rightmod=1&wvr=6&mod=personnumber"><i class="fa fa-fw fa-weibo"></i></span>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly9sbGlmZS5jbmJsb2dzLmNvbS8=" title="https://llife.cnblogs.com/">LinSenGeGe</span>
+        </li>
+      
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">顾北清</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+      <div class="reading-progress-bar"></div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="/js/Valine.min.js"></script>  
+
+    
+  
+  <script src="/js/src/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'etQ1GroxxTqv7vVnzKADlaBs-gzGzoHsz',
+        appKey: 'lvnmYs6uvsavXQ0IMsuFvl9M',
+        placeholder: '说点什么吧！',
+        avatar:'mm',
+        guest_info:['nick'] ,  
+        pageSize:'10' || 10,
+    });
+
+    var infoEle = document.querySelector('#comments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+      infoEle.childNodes.forEach(function(item) {
+        item.parentNode.removeChild(item);
+      });
+    }
+  </script>
+
+</body>
+</html>

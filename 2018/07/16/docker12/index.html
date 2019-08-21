@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker容器技术学习与分享12">
+<meta property="og:url" content="http://yoursite.com/2018/07/16/docker12/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://image.3001.net/images/20181128/15434082114529.jpg">
+<meta property="og:updated_time" content="2019-08-21T02:42:00.389Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker容器技术学习与分享12">
+<meta name="twitter:image" content="https://image.3001.net/images/20181128/15434082114529.jpg">
+  <link rel="canonical" href="http://yoursite.com/2018/07/16/docker12/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Docker容器技术学习与分享12 | 个人博客</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">14</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">51</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/16/docker12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="顾北清">
+      <meta itemprop="description" content="一个想打CTF的菜鸡">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">Docker容器技术学习与分享12
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2018-07-16 20:56:06" itemprop="dateCreated datePublished" datetime="2018-07-16T20:56:06+08:00">2018-07-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-21 10:42:00" itemprop="dateModified" datetime="2019-08-21T10:42:00+08:00">2019-08-21</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/2018/07/16/docker12/" class="post-meta-item leancloud_visitors" data-flag-title="Docker容器技术学习与分享12" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/07/16/docker12/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/07/16/docker12/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://image.3001.net/images/20181128/15434082114529.jpg" alt></p>
+<a id="more"></a> 
+
+<h1 id="Docker多主机管理"><a href="#Docker多主机管理" class="headerlink" title="Docker多主机管理"></a>Docker多主机管理</h1><p>之前在一台Centos7上安装了Docker，如果是在多台主机上都安装Docker，用手动安装的方法不光效率低下，而且有可能出错，所以可以使用<code>Docker Machine</code>进行多台主机的Docker安装和管理。<br>具体安装过程可以参照官方文档<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmRvY2tlci5jb20vbWFjaGluZS9pbnN0YWxsLW1hY2hpbmUv" title="https://docs.docker.com/machine/install-machine/">https://docs.docker.com/machine/install-machine/<i class="fa fa-external-link"></i></span>.<br>首先准备两台Centos7的虚拟机（一台IP为<code>192.168.41.133</code>，安装<code>Docker Machine</code>，另一台IP为<code>192.168.41.135</code>），在其中一台机器上安装Docker，安装过程可以参照分享01.<br>然后下载<code>Docker Machine</code>二进制文件并将其解压缩到PATH。</p>
+<pre><code>[root@promote ~]# base=https://github.com/docker/machine/releases/download/v0.14.0 &amp;&amp;
+&gt;   curl -L $base/docker-machine-$(uname -s)-$(uname -m) &gt;/tmp/docker-machine &amp;&amp;
+&gt;   sudo install /tmp/docker-machine /usr/local/bin/docker-machine
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                Dload  Upload   Total   Spent    Left  Speed
+100   617    0   617    0     0    583      0 --:--:--  0:00:01 --:--:--   584
+100 26.7M  100 26.7M    0     0  1730k      0  0:00:15  0:00:15 --:--:-- 3488k</code></pre><p>接着通过显示机器版本来检查安装：</p>
+<pre><code>[root@promote ~]# docker-machine version
+docker-machine version 0.14.0, build 89b8332</code></pre><p>为了更好的体验接着安装bash完成脚本，将脚本保存到<code>/etc/bash_completion.d</code>或 <code>/usr/local/etc/bash_completion.d</code>。</p>
+<pre><code>[root@promote ~]# cd /etc/bash_completion.d
+[root@promote bash_completion.d]# base=https://raw.githubusercontent.com/docker/machine/v0.14.0
+[root@promote bash_completion.d]# for i in docker-machine-prompt.bash docker-machine-wrapper.bash docker-machine.                                                                         bash
+&gt; do
+&gt;   sudo wget &quot;$base/contrib/completion/bash/${i}&quot; -P /etc/bash_completion.d
+&gt; done
+--2018-07-11 01:47:47--  https://raw.githubusercontent.com/docker/machine/v0.14.0/contrib/completion/bash/docker-                                                                         machine-prompt.bash
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.40.133
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.40.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1469 (1.4K) [text/plain]
+Saving to: ‘/etc/bash_completion.d/docker-machine-prompt.bash’
+
+100%[=======================================================================&gt;] 1,469       --.-K/s   in 0s
+
+2018-07-11 01:47:48 (192 MB/s) - ‘/etc/bash_completion.d/docker-machine-prompt.bash’ saved [1469/1469]
+
+--2018-07-11 01:47:48--  https://raw.githubusercontent.com/docker/machine/v0.14.0/contrib/completion/bash/docker-                                                                         machine-wrapper.bash
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.40.133
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.40.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1525 (1.5K) [text/plain]
+Saving to: ‘/etc/bash_completion.d/docker-machine-wrapper.bash’
+
+100%[=======================================================================&gt;] 1,525       --.-K/s   in 0s
+
+2018-07-11 01:47:50 (160 MB/s) - ‘/etc/bash_completion.d/docker-machine-wrapper.bash’ saved [1525/1525]
+
+--2018-07-11 01:47:50--  https://raw.githubusercontent.com/docker/machine/v0.14.0/contrib/completion/bash/docker-                                                                         machine.bash
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.40.133
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.40.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 12205 (12K) [text/plain]
+Saving to: ‘/etc/bash_completion.d/docker-machine.bash’
+
+100%[=======================================================================&gt;] 12,205      --.-K/s   in 0.02s
+
+2018-07-11 01:47:51 (489 KB/s) - ‘/etc/bash_completion.d/docker-machine.bash’ saved [12205/12205]</code></pre><p>这样就下载好了脚本。<br>接着申明环境变量。</p>
+<pre><code>[root@promote bash_completion.d]# source /etc/bash_completion.d/docker-machine-prompt.bash </code></pre><p>可以先使用<code>docker-machine ls</code>查看一下当前的<code>machine</code>.</p>
+<pre><code>[root@promote ~]# docker-machine ls
+NAME   ACTIVE   DRIVER   STATE   URL   SWARM   DOCKER   ERRORS</code></pre><p>因为还没有安装Docker所以使用这条命令什么都没有。<br>接着创建第一台机器，就是另外一台Centos虚拟机（IP：192.168.41.155）.<br>1.首先需要让这两台Centos可以SSH免密登陆。</p>
+<pre><code>[root@promote ~]# ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Created directory &apos;/root/.ssh&apos;.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:T6qcnNvYwepsMhGfdvG/Gk+BtzVe2eCLiF0aMAI6wqc root@promote.cache-dns.local
+The key&apos;s randomart image is:
++---[RSA 2048]----+
+|    .            |
+|.  . .           |
+|..o.  . o     .  |
+| .o..  ..o . . .o|
+| E   o .So+ + +.o|
+|    . +..*.* * + |
+|     o .= *.+ o  |
+|    o+.O . +.    |
+|     =%.o ..o.   |
++----[SHA256]-----+
+[root@promote ~]# ssh-copy-id 192.168.41.135
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: &quot;/root/.ssh/id_rsa.pub&quot;
+The authenticity of host &apos;192.168.41.135 (192.168.41.135)&apos; can&apos;t be established.
+ECDSA key fingerprint is SHA256:JqAC8jcLCLobvRy0wzY9VGBNuZU3EydpO8n2fEtQ178.
+ECDSA key fingerprint is MD5:5d:26:a1:60:c3:eb:02:e9:97:7a:bb:7a:49:8a:14:0b.
+Are you sure you want to continue connecting (yes/no)? yes
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+root@192.168.41.135&apos;s password:
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   &quot;ssh &apos;192.168.41.135&apos;&quot;
+and check to make sure that only the key(s) you wanted were added.</code></pre><p>2.创建第一个机器<br>使用<code>docker-machine create</code>命令，因为是Linux，所以<code>driver</code>就用<code>generic</code>,目标地址选项用<code>--generic-ip-address</code>。</p>
+<pre><code>[root@promote ~]# docker-machine create --driver generic --generic-ip-address=192.168.41.135 machine1
+Creating CA: /root/.docker/machine/certs/ca.pem
+Creating client certificate: /root/.docker/machine/certs/cert.pem
+Running pre-create checks...
+Creating machine...
+(machine1) No SSH key specified. Assuming an existing key at the default location.
+Waiting for machine to be running, this may take a few minutes...
+Detecting operating system of created instance...
+Waiting for SSH to be available...
+Detecting the provisioner...
+Provisioning with centos...
+Copying certs to the local machine directory...
+Copying certs to the remote machine...
+Setting Docker configuration on the remote daemon...
+Checking connection to Docker...
+Docker is up and running!
+To see how to connect your Docker Client to the Docker Engine running on this virtual machine, run: docker-machine env machine1</code></pre><p>现在到<code>192.168.41.135</code>上去验证。</p>
+<pre><code>[root@promote ~]# docker version
+Client:
+Version:      18.05.0-ce
+API version:  1.37
+Go version:   go1.9.5
+Git commit:   f150324
+Built:        Wed May  9 22:14:54 2018
+OS/Arch:      linux/amd64
+Experimental: false
+Orchestrator: swarm
+
+Server:
+Engine:
+Version:      18.05.0-ce
+API version:  1.37 (minimum version 1.12)
+Go version:   go1.9.5
+Git commit:   f150324
+Built:        Wed May  9 22:18:36 2018
+OS/Arch:      linux/amd64
+Experimental: false</code></pre><p>也可以在<code>192.168.41.133</code>上验证。</p>
+<pre><code>[root@promote ~]# docker-machine ls
+NAME       ACTIVE   DRIVER    STATE     URL                         SWARM   DOCKER        ERRORS
+machine1   -        generic   Running   tcp://192.168.41.135:2376           v18.05.0-ce</code></pre><p>发现安装完成。<br>接着我通过<code>192.168.41.133</code>这台主机来使用<code>192.168.41.135</code>主机上的Docker,首先查看访问machine所需要的环境变量。</p>
+<pre><code>[root@promote ~]# docker-machine env machine1
+export DOCKER_TLS_VERIFY=&quot;1&quot;
+export DOCKER_HOST=&quot;tcp://192.168.41.135:2376&quot;
+export DOCKER_CERT_PATH=&quot;/root/.docker/machine/machines/machine1&quot;
+export DOCKER_MACHINE_NAME=&quot;machine1&quot;
+# Run this command to configure your shell:
+# eval $(docker-machine env machine1)</code></pre><p>可以看到倒数第二行：运行此命令来配置你的shell<br>也就是指运行<code>eval $(docker-machine env machine1)</code>命令配置上面的环境变量进入<code>machine1</code>.<br>运行之后发现并无变化，是因为一开始我们没有配置<code>shell</code>提示.<br>接着启用<code>docker-machine</code>shell提示，添加 <code>$(__docker_machine_ps1)</code>到您的<code>PS1</code>设置中<code>~/.bashrc</code>。</p>
+<pre><code>[root@promote ~]# PS1=&apos;[\u@\h \W$(__docker_machine_ps1)]\$ &apos;
+[root@promote ~ [machine1]]#</code></pre><p>这时发现shell变了，在当前状态下的所有docker操作都是运行在<code>machine1</code>上的，即<code>192.168.41.135</code>主机上。<br>如果要切回回来的环境使用<code>unset</code>命令，取消环境变量即可：</p>
+<pre><code>[root@promote ~ [machine1]]# unset export DOCKER_TLS_VERIFY
+[root@promote ~ [machine1]]# unset DOCKER_HOST
+[root@promote ~ [machine1]]# unset DOCKER_CERT_PATH
+[root@promote ~ [machine1]]# unset DOCKER_MACHINE_NAME
+[root@promote ~]#</code></pre><p>发现变回来了。<br><code>docker-machine</code>的其他用法可以使用<code>docker-machine --help</code>命令来查看。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="顾北清 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.jpg" alt="顾北清 Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>顾北清</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2018/07/16/docker12/" title="Docker容器技术学习与分享12">http://yoursite.com/2018/07/16/docker12/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1IYW5z"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/07/16/docker11/" rel="next" title="Docker容器技术学习与分享11">
+                  <i class="fa fa-chevron-left"></i> Docker容器技术学习与分享11
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/07/16/mysql01/" rel="prev" title="MySQL基本简单操作01">
+                  MySQL基本简单操作01 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="顾北清">
+  <p class="site-author-name" itemprop="name">顾北清</p>
+  <div class="site-description motion-element" itemprop="description">一个想打CTF的菜鸡</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1RpbWVzaS8=" title="GitHub &rarr; https://github.com/Timesi/"><i class="fa fa-fw fa-github"></i></span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vMzIxMjE3MTA0My9wcm9maWxlP3JpZ2h0bW9kPTEmd3ZyPTYmbW9kPXBlcnNvbm51bWJlcg==" title="Weibo &rarr; https://weibo.com/3212171043/profile?rightmod=1&wvr=6&mod=personnumber"><i class="fa fa-fw fa-weibo"></i></span>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly9sbGlmZS5jbmJsb2dzLmNvbS8=" title="https://llife.cnblogs.com/">LinSenGeGe</span>
+        </li>
+      
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker多主机管理"><span class="nav-number">1.</span> <span class="nav-text">Docker多主机管理</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">顾北清</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+      <div class="reading-progress-bar"></div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="/js/Valine.min.js"></script>  
+
+    
+  
+  <script src="/js/src/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'etQ1GroxxTqv7vVnzKADlaBs-gzGzoHsz',
+        appKey: 'lvnmYs6uvsavXQ0IMsuFvl9M',
+        placeholder: '说点什么吧！',
+        avatar:'mm',
+        guest_info:['nick'] ,  
+        pageSize:'10' || 10,
+    });
+
+    var infoEle = document.querySelector('#comments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+      infoEle.childNodes.forEach(function(item) {
+        item.parentNode.removeChild(item);
+      });
+    }
+  </script>
+
+</body>
+</html>

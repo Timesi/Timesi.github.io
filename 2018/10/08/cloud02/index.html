@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="大家好，我顾某人又回来了。以下内容均为个人理解和整理，有不对的地方还望dalao指正。。。。。本文所用图片均已标明来源。">
+<meta name="keywords" content="Cloud,openstack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简述openstack">
+<meta property="og:url" content="http://yoursite.com/2018/10/08/cloud02/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="大家好，我顾某人又回来了。以下内容均为个人理解和整理，有不对的地方还望dalao指正。。。。。本文所用图片均已标明来源。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://image.3001.net/images/20181123/15429714047540.png">
+<meta property="og:image" content="https://image.3001.net/images/20181123/15429714066102.jpg">
+<meta property="og:updated_time" content="2019-08-21T02:42:21.289Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简述openstack">
+<meta name="twitter:description" content="大家好，我顾某人又回来了。以下内容均为个人理解和整理，有不对的地方还望dalao指正。。。。。本文所用图片均已标明来源。">
+<meta name="twitter:image" content="https://image.3001.net/images/20181123/15429714047540.png">
+  <link rel="canonical" href="http://yoursite.com/2018/10/08/cloud02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>简述openstack | 个人博客</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">14</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">51</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/08/cloud02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="顾北清">
+      <meta itemprop="description" content="一个想打CTF的菜鸡">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">简述openstack
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2018-10-08 14:43:05" itemprop="dateCreated datePublished" datetime="2018-10-08T14:43:05+08:00">2018-10-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-21 10:42:21" itemprop="dateModified" datetime="2019-08-21T10:42:21+08:00">2019-08-21</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/2018/10/08/cloud02/" class="post-meta-item leancloud_visitors" data-flag-title="简述openstack" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2018/10/08/cloud02/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2018/10/08/cloud02/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <a id="more"></a><p>大家好，我顾某人又回来了。<br><strong>以下内容均为个人理解和整理，有不对的地方还望dalao指正。。。。。</strong><br>本文所用图片均已标明来源。</p><a id="more"></a>
+
+
+<p><strong>openstack是什么？</strong><br>OpenStack是一个开源的云计算管理平台项目，由几个主要的组件组合起来完成具体工作。OpenStack支持几乎所有类型的云环境，项目目标是提供实施简单、可大规模扩展、丰富、标准统一的云计算管理平台。</p>
+<p><strong>openstack组成</strong><br>openstack由以下七个主要部分组成：</p>
+<ul>
+<li>Nova：计算服务</li>
+<li>Neutron：网络管理服务</li>
+<li>Keystone：认证服务</li>
+<li>Swift：对象存储服务</li>
+<li>Cinder：块存储服务</li>
+<li>Glance：镜像管理服务</li>
+<li>Horizon：操作界面</li>
+</ul>
+<p><strong>openstack整体架构</strong><br>图源网络<br><img src="https://image.3001.net/images/20181123/15429714047540.png" alt></p>
+<p><strong>openstack组成详解</strong></p>
+<blockquote>
+<p><strong>Nova</strong></p>
+</blockquote>
+<p>Nova提供CPU、内存、网络适配器和硬件驱动器等服务器资源虚拟化的功能，提高了资源的利用率。<br>通过Nova api来接受和响应用户的请求，实时对VM进行启动、挂起、停止等功能。<br>Nova主要包含的组件有：</p>
+<ul>
+<li>Nova-api<br>响应用户的请求</li>
+<li>Nova-scheduler<br>负责VM的调度，决定了VM运行在哪台主机上。</li>
+<li>Nova-compute<br>管理VM实例的生命周期</li>
+<li>Nova-conductor<br>计算服务与数据库的交互中介，避免直接访问数据库</li>
+<li>Nova-console<br>提供访问VM的控制台</li>
+<li>Nova-consoleauth<br>负责对VM控制台的请求提供Token认证</li>
+<li>Nova-cert<br>提供证书</li>
+<li>Hypervisor<br>虚拟化管理程序，用于实现硬件的虚拟化</li>
+<li>database<br>用于存放一些Nova的数据</li>
+<li>message queue<br>用于Nova子服务之间的相互协调和通信</li>
+</ul>
+<blockquote>
+<p><strong>Neutron</strong></p>
+</blockquote>
+<p>Neutron架构，图源CloudMan<br><img src="https://image.3001.net/images/20181123/15429714066102.jpg" alt><br>Neutron通过<code>plugin</code>和<code>agent</code>提供的网络服务。<br>调用网络的API分为以下两种：</p>
+<ul>
+<li>Core API<br>对外提供<code>network</code>、<code>subnet</code>和<code>port</code>的API</li>
+<li>Resource and Attribute Extension API<br>对外提供管理<code>router</code>、<code>load balance</code>、<code>firewall</code>等资源的API。</li>
+</ul>
+<p>Neutron的<code>plugin</code>分为<code>Neutron Core Plugins</code>和<code>Neutron Service Plugins</code>。</p>
+<ul>
+<li>Neutron Core Plugins<br>Neutron的核心插件，实现<code>Core API</code>在数据库中维护<code>network</code>、<code>subnet</code>和<code>port</code>的状态，并负责调用相应的<code>agent</code>在<code>network provider</code>上执行相关操作.</li>
+<li>Neutron Service Plugins<br>Neutron的扩展插件，实现<code>Extension Plugin API</code>，在数据库中维护<code>router</code>、<code>load balance</code>、<code>security group</code>等资源的状态，并负责调用相应的<code>agent</code>在<code>network provider</code>上执行相关操作.</li>
+</ul>
+<p>Message Queue:消息队列<br>用于<code>Plugins</code>和<code>Agent</code>相互之间的调用.</p>
+<blockquote>
+<p><strong>Keystone</strong></p>
+</blockquote>
+<p>keystone为openstack组件提供认证服务和管理用户及其权限。<br>keystone中有几个重要的概念要了解一下：User（用户）、Role（角色）、Tenant（租户）、Service（服务）。</p>
+<ul>
+<li>User   用户，keystone的授权用户</li>
+<li>Role   角色，表示用户可以访问资源的权限</li>
+<li>Tenant 租户，各个服务中可以访问的资源合集</li>
+<li>Service 服务，租户可以提供的服务</li>
+</ul>
+<p>keystone的运作流程大概是这样的：当User想要去访问某个Service时，首先他要向keystone出示它的Credentials，Keystone认证之后会给User一个Token，然后User就可以使用这个Token去访问Service，这时这个Service就会向keystone去验证User的Token，如果验证成功，那么User就成功访问到Service中的Endpoint，且User的Role越高，访问到的Service越多。<br>通俗的来讲是这样的：<br>User|住酒店的人<br>|:-|:-<br>Tenant|酒店<br>Credentials|酒店房间钥匙<br>Authentication|房客认证机制<br>Token|发给能打开房间的人的凭证，用于享受酒店的服务<br>Service|酒店提供的一种服务<br>Endpoint|酒店提供服务中的具体服务<br>Role|酒店会员等级</p>
+<blockquote>
+<p><strong>Swift</strong></p>
+</blockquote>
+<p>Swift为OpenStack提供一种分布式、持续虚拟对象存储,主要用于存储大的对象文件,比如虚拟机的备份。</p>
+<blockquote>
+<p><strong>Cinder</strong></p>
+</blockquote>
+<p>openstack的一种块存储方式，挂载给虚拟机使用，可以给虚拟机提供额外的空间。<br><strong>swift和cinder的比较</strong><br><code>swift</code>类似于保存PC的系统，而<code>cinder</code>类似于保存PC里面的文件。</p>
+<blockquote>
+<p><strong>Glance</strong></p>
+</blockquote>
+<p>openstack中用于保存创建VM的镜像,比如，现在现在需要安装一个<code>win7</code>的操作系统给公司的某个员工使用，按照传统的操作方式需要花费大量时间，但是现在在云环境中，只需要直接从<code>glance</code>中按模板启动<code>win7</code>即可，二七人只许耗费几秒钟的时间<br><code>glance</code>包括<code>glance-api</code>、<code>glance-registry</code>和<code>store backend</code>.</p>
+<ul>
+<li>glance-api<br>对外提供API，用于响应<code>image</code>的查询、获取等调用。</li>
+<li>glance-registry<br>用于处理和存取<code>image</code>的的元数据，例如大小、类型等，并且戴护具对应到<code>Database</code>。</li>
+<li>store backend<br>用于存放<code>image</code>。</li>
+</ul>
+<blockquote>
+<p><strong>Horizon</strong></p>
+</blockquote>
+<p>简单的来说，Horizon是一个web接口，用于将openstack的资源聚集到一起并进行图形化管理。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="顾北清 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.jpg" alt="顾北清 Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>顾北清</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2018/10/08/cloud02/" title="简述openstack">http://yoursite.com/2018/10/08/cloud02/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1IYW5z"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Cloud/" rel="tag"><i class="fa fa-tag"></i> Cloud</a>
+            
+              <a href="/tags/openstack/" rel="tag"><i class="fa fa-tag"></i> openstack</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/10/08/cloud01/" rel="next" title="简述KVM架构和Xen架构">
+                  <i class="fa fa-chevron-left"></i> 简述KVM架构和Xen架构
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/10/08/mysql04/" rel="prev" title="MySQL用户远程登录问题">
+                  MySQL用户远程登录问题 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="顾北清">
+  <p class="site-author-name" itemprop="name">顾北清</p>
+  <div class="site-description motion-element" itemprop="description">一个想打CTF的菜鸡</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1RpbWVzaS8=" title="GitHub &rarr; https://github.com/Timesi/"><i class="fa fa-fw fa-github"></i></span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vMzIxMjE3MTA0My9wcm9maWxlP3JpZ2h0bW9kPTEmd3ZyPTYmbW9kPXBlcnNvbm51bWJlcg==" title="Weibo &rarr; https://weibo.com/3212171043/profile?rightmod=1&wvr=6&mod=personnumber"><i class="fa fa-fw fa-weibo"></i></span>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly9sbGlmZS5jbmJsb2dzLmNvbS8=" title="https://llife.cnblogs.com/">LinSenGeGe</span>
+        </li>
+      
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">顾北清</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+      <div class="reading-progress-bar"></div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="/js/Valine.min.js"></script>  
+
+    
+  
+  <script src="/js/src/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'etQ1GroxxTqv7vVnzKADlaBs-gzGzoHsz',
+        appKey: 'lvnmYs6uvsavXQ0IMsuFvl9M',
+        placeholder: '说点什么吧！',
+        avatar:'mm',
+        guest_info:['nick'] ,  
+        pageSize:'10' || 10,
+    });
+
+    var infoEle = document.querySelector('#comments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+      infoEle.childNodes.forEach(function(item) {
+        item.parentNode.removeChild(item);
+      });
+    }
+  </script>
+
+</body>
+</html>

