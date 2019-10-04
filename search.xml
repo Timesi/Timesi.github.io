@@ -110,33 +110,6 @@
     
     
     <entry>
-      <title>foreach函数</title>
-      <link href="/2018/10/08/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/"/>
-      <url>/2018/10/08/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/</url>
-      
-        <content type="html"><![CDATA[<h3 id="foreach函数"><a href="#foreach函数" class="headerlink" title="foreach函数"></a>foreach函数</h3><p>PHP中遍历有一个遍历数组的函数–foreach。<br>foreach有两种用法，一种直接遍历数组然后输出值，另一种不光输出值，还输出与值对应的键。</p><p>第一种：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$array = array(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;);</span><br><span class="line">foreach($array as $values)&#123;</span><br><span class="line">    echo $values;</span><br><span class="line">    echo &quot;&lt;br /&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606672129830.jpg" class="lozad"></p><p>第二种：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$array = array(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;);</span><br><span class="line">foreach($array as $key =&gt; $values)&#123;</span><br><span class="line">    echo $key.&quot;-&gt;&quot;.$values;</span><br><span class="line">    echo &quot;&lt;br /&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606674259418.jpg" class="lozad"></p><p>如果是关联数组使用第二种方法就可以输出键值对。</p><p>###变量覆盖</p><p><strong>1.$$变量覆盖</strong><br>举个最简单的例子：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a=10;</span><br><span class="line">$array = array(&apos;a&apos;=&gt;1,&apos;b&apos;=&gt;2,&apos;c&apos;=&gt;3);</span><br><span class="line">foreach ($array as $key=&gt;$value)  </span><br><span class="line">&#123;</span><br><span class="line">        $$key = $value;</span><br><span class="line">&#125;</span><br><span class="line">echo $a;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>我先定义了一个变量a并初始化为10，查看一下输出：<br><img alt data-src="https://image.3001.net/images/20190616/1560671487540.jpg" class="lozad"><br>发现输出的结果中，变量a的值变成了1，就是因为变量覆盖。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$array = array(&apos;a&apos;=&gt;1,&apos;b&apos;=&gt;2,&apos;c&apos;=&gt;3);</span><br><span class="line">foreach ($array as $key=&gt;$value)  </span><br><span class="line">&#123;</span><br><span class="line">    $$key = $value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在这段语句中，<code>foreach ($array as $key=&gt;$value)</code>输出的key应该是<code>a，b,c</code>,输出的value 应该是<code>1,2,3</code>,但是到下一句之后，使用<code>$$key</code>使得原来的<code>a</code>变成了<code>$a</code>，而value的值没有变化，就使得foreach里面的语句变成了<code>$a=1</code>,<code>$b=2</code>,<code>$c=3</code>，这样一来，<code>$a=1</code>就将之前的<code>$a=10</code>，覆盖了，所以输出的结果是<code>$a=1</code>。</p><p><strong>2.extract()变量覆盖</strong><br>源自<a href="http://www.w3school.com.cn/php/func_array_extract.asp" target="_blank" rel="noopener">W3school</a>。</p><p>（1）语法</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extract(array,extract_rules,prefix)</span><br></pre></td></tr></table></figure><p>（2）定义和用法<br>extract() 函数从数组中将变量导入到当前的符号表。<br>该函数使用数组键名作为变量名，使用数组键值作为变量值。针对数组中的每个元素，将在当前符号表中创建对应的一个变量。<br>第二个参数 type 用于指定当某个变量已经存在，而数组中又有同名元素时，extract() 函数如何对待这样的冲突。<br>该函数返回成功导入到符号表中的变量数目。</p><p>（3）举例</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a = &quot;Original&quot;;</span><br><span class="line">$my_array = array(&quot;a&quot; =&gt; &quot;Cat&quot;,&quot;b&quot; =&gt; &quot;Dog&quot;, &quot;c&quot; =&gt; &quot;Horse&quot;);</span><br><span class="line">extract($my_array);</span><br><span class="line">echo &quot;\$a = $a; \$b = $b; \$c = $c&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606724931566.jpg" class="lozad"><br>可以看到$a原来的值被覆盖。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> PHP </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> CTF </tag>
-            
-            <tag> PHP </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>CTF-SQL注入1</title>
       <link href="/2018/10/08/CTF-SQL1/"/>
       <url>/2018/10/08/CTF-SQL1/</url>
@@ -156,6 +129,33 @@
             <tag> CTF </tag>
             
             <tag> MySQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>foreach函数</title>
+      <link href="/2018/10/08/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/"/>
+      <url>/2018/10/08/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h3 id="foreach函数"><a href="#foreach函数" class="headerlink" title="foreach函数"></a>foreach函数</h3><p>PHP中遍历有一个遍历数组的函数–foreach。<br>foreach有两种用法，一种直接遍历数组然后输出值，另一种不光输出值，还输出与值对应的键。</p><p>第一种：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$array = array(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;);</span><br><span class="line">foreach($array as $values)&#123;</span><br><span class="line">    echo $values;</span><br><span class="line">    echo &quot;&lt;br /&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606672129830.jpg" class="lozad"></p><p>第二种：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$array = array(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;);</span><br><span class="line">foreach($array as $key =&gt; $values)&#123;</span><br><span class="line">    echo $key.&quot;-&gt;&quot;.$values;</span><br><span class="line">    echo &quot;&lt;br /&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606674259418.jpg" class="lozad"></p><p>如果是关联数组使用第二种方法就可以输出键值对。</p><p>###变量覆盖</p><p><strong>1.$$变量覆盖</strong><br>举个最简单的例子：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a=10;</span><br><span class="line">$array = array(&apos;a&apos;=&gt;1,&apos;b&apos;=&gt;2,&apos;c&apos;=&gt;3);</span><br><span class="line">foreach ($array as $key=&gt;$value)  </span><br><span class="line">&#123;</span><br><span class="line">        $$key = $value;</span><br><span class="line">&#125;</span><br><span class="line">echo $a;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>我先定义了一个变量a并初始化为10，查看一下输出：<br><img alt data-src="https://image.3001.net/images/20190616/1560671487540.jpg" class="lozad"><br>发现输出的结果中，变量a的值变成了1，就是因为变量覆盖。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$array = array(&apos;a&apos;=&gt;1,&apos;b&apos;=&gt;2,&apos;c&apos;=&gt;3);</span><br><span class="line">foreach ($array as $key=&gt;$value)  </span><br><span class="line">&#123;</span><br><span class="line">    $$key = $value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在这段语句中，<code>foreach ($array as $key=&gt;$value)</code>输出的key应该是<code>a，b,c</code>,输出的value 应该是<code>1,2,3</code>,但是到下一句之后，使用<code>$$key</code>使得原来的<code>a</code>变成了<code>$a</code>，而value的值没有变化，就使得foreach里面的语句变成了<code>$a=1</code>,<code>$b=2</code>,<code>$c=3</code>，这样一来，<code>$a=1</code>就将之前的<code>$a=10</code>，覆盖了，所以输出的结果是<code>$a=1</code>。</p><p><strong>2.extract()变量覆盖</strong><br>源自<a href="http://www.w3school.com.cn/php/func_array_extract.asp" target="_blank" rel="noopener">W3school</a>。</p><p>（1）语法</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extract(array,extract_rules,prefix)</span><br></pre></td></tr></table></figure><p>（2）定义和用法<br>extract() 函数从数组中将变量导入到当前的符号表。<br>该函数使用数组键名作为变量名，使用数组键值作为变量值。针对数组中的每个元素，将在当前符号表中创建对应的一个变量。<br>第二个参数 type 用于指定当某个变量已经存在，而数组中又有同名元素时，extract() 函数如何对待这样的冲突。<br>该函数返回成功导入到符号表中的变量数目。</p><p>（3）举例</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a = &quot;Original&quot;;</span><br><span class="line">$my_array = array(&quot;a&quot; =&gt; &quot;Cat&quot;,&quot;b&quot; =&gt; &quot;Dog&quot;, &quot;c&quot; =&gt; &quot;Horse&quot;);</span><br><span class="line">extract($my_array);</span><br><span class="line">echo &quot;\$a = $a; \$b = $b; \$c = $c&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606724931566.jpg" class="lozad"><br>可以看到$a原来的值被覆盖。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> PHP </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> PHP </tag>
             
         </tags>
       
