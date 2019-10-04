@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://www.gubeiqing.cn/"/>
   <updated>2019-10-04T03:42:47.409Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://www.gubeiqing.cn/</id>
   
   <author>
     <name>顾北清</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Mysql基础注入</title>
-    <link href="http://yoursite.com/2019/06/14/mysql05/"/>
-    <id>http://yoursite.com/2019/06/14/mysql05/</id>
+    <link href="https://www.gubeiqing.cn/2019/06/14/mysql05/"/>
+    <id>https://www.gubeiqing.cn/2019/06/14/mysql05/</id>
     <published>2019-06-14T14:21:16.000Z</published>
     <updated>2019-10-04T03:42:47.409Z</updated>
     
@@ -35,19 +35,19 @@
     
     </summary>
     
-      <category term="Mysql" scheme="http://yoursite.com/categories/Mysql/"/>
+      <category term="Mysql" scheme="https://www.gubeiqing.cn/categories/Mysql/"/>
     
     
-      <category term="安全" scheme="http://yoursite.com/tags/%E5%AE%89%E5%85%A8/"/>
+      <category term="安全" scheme="https://www.gubeiqing.cn/tags/%E5%AE%89%E5%85%A8/"/>
     
-      <category term="Mysql" scheme="http://yoursite.com/tags/Mysql/"/>
+      <category term="Mysql" scheme="https://www.gubeiqing.cn/tags/Mysql/"/>
     
   </entry>
   
   <entry>
     <title>手动搭建Docker本地私有镜像仓库</title>
-    <link href="http://yoursite.com/2018/10/27/docker14/"/>
-    <id>http://yoursite.com/2018/10/27/docker14/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/27/docker14/"/>
+    <id>https://www.gubeiqing.cn/2018/10/27/docker14/</id>
     <published>2018-10-27T13:08:34.000Z</published>
     <updated>2019-10-04T04:00:39.403Z</updated>
     
@@ -63,17 +63,17 @@
     
     </summary>
     
-      <category term="Docker" scheme="http://yoursite.com/categories/Docker/"/>
+      <category term="Docker" scheme="https://www.gubeiqing.cn/categories/Docker/"/>
     
     
-      <category term="Docker" scheme="http://yoursite.com/tags/Docker/"/>
+      <category term="Docker" scheme="https://www.gubeiqing.cn/tags/Docker/"/>
     
   </entry>
   
   <entry>
     <title>Ubuntu下使用Tim/Wechat</title>
-    <link href="http://yoursite.com/2018/10/27/docker13/"/>
-    <id>http://yoursite.com/2018/10/27/docker13/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/27/docker13/"/>
+    <id>https://www.gubeiqing.cn/2018/10/27/docker13/</id>
     <published>2018-10-27T13:07:11.000Z</published>
     <updated>2019-10-04T04:02:10.164Z</updated>
     
@@ -89,23 +89,23 @@
     
     </summary>
     
-      <category term="Docker" scheme="http://yoursite.com/categories/Docker/"/>
+      <category term="Docker" scheme="https://www.gubeiqing.cn/categories/Docker/"/>
     
     
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+      <category term="Linux" scheme="https://www.gubeiqing.cn/tags/Linux/"/>
     
-      <category term="Dokcer" scheme="http://yoursite.com/tags/Dokcer/"/>
+      <category term="Dokcer" scheme="https://www.gubeiqing.cn/tags/Dokcer/"/>
     
   </entry>
   
   <entry>
     <title>Docker+Nextcloud快速部署个人网盘</title>
-    <link href="http://yoursite.com/2018/10/08/cloud04/"/>
-    <id>http://yoursite.com/2018/10/08/cloud04/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/08/cloud04/"/>
+    <id>https://www.gubeiqing.cn/2018/10/08/cloud04/</id>
     <published>2018-10-08T06:58:33.000Z</published>
     <updated>2019-10-04T04:05:20.186Z</updated>
     
-    <content type="html"><![CDATA[<p>各位大佬好，，，萌新顾北清又回来更新了，今天要<strong>快速</strong>部署一个人网盘。<br>有多快呢，，，5分钟吧，因为我们使用Docker部署。<br>Docker基础可以看看我之前的博文。（<a href="http://www.gubeiqing.cn/2018/06/03/docker01/" target="_blank" rel="noopener">点这里点这里</a>）<br>那么，，，开始吧。</p><p><strong>实验环境：小伙伴的阿里云服务器，安装的是Centos7的系统，要安装的网盘叫<code>Nextcloud</code></strong></p><p>下面开始安装<br><strong>第一步</strong><br>老规矩，先安装<code>Docker</code>环境.<br>命令如下：</p><pre><code>[root@izt8mvnno1ny1dz ~]# yum install -y dockerLoaded plugins: fastestmirrorbase                                                                                                                                    | 3.6 kB  00:00:00epel                                                                                                                                    | 3.2 kB  00:00:00extras                                                                                                                                  | 3.4 kB  00:00:00updates                                                                                                                                 | 3.4 kB  00:00:00Loading mirror speeds from cached hostfilePackage 2:docker-1.13.1-74.git6e3bb8e.el7.centos.x86_64 already installed and latest versionNothing to do</code></pre><p>我这里已经安装完成就不重复安装了。<br>启动docker并设置自启：</p><pre><code>[root@izt8mvnno1ny1dz ~]# systemctl start docker[root@izt8mvnno1ny1dz ~]# systemctl enable docker</code></pre><p><strong>第二步</strong><br>查找<code>Nextcloud</code>网盘的镜像</p><pre><code>[root@izt8mvnno1ny1dz ~]# docker search nextcloudINDEX       NAME                                      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATEDdocker.io   docker.io/nextcloud                       A safe home for all your data                   561       [OK]docker.io   docker.io/linuxserver/nextcloud           A Nextcloud container, brought to you by L...   81docker.io   docker.io/greyltc/nextcloud               Nextcloud: a safe home for all your data. ...   38                   [OK]docker.io   docker.io/wonderfall/nextcloud            All-in-one alpine-based Nextcloud image.        36                   [OK]docker.io   docker.io/rootlogin/nextcloud             Nextcloud docker image running on top of N...   17                   [OK]docker.io   docker.io/lsioarmhf/nextcloud             ARMHF based Linuxserver.io image of nextcloud   9docker.io   docker.io/arm32v7/nextcloud               A safe home for all your data                   8docker.io   docker.io/benyanke/nextcloud              Fork of wonderfall/nextcloud, since it is ...   7                    [OK]docker.io   docker.io/ownyourbits/nextcloudpi         NextCloud ARM docker container                  7docker.io   docker.io/sameersbn/nextcloud             Dockerized Nextcloud                            7                    [OK]docker.io   docker.io/ownyourbits/nextcloudpi-armhf   NextCloudPi ARM docker container                6docker.io   docker.io/hoellen/nextcloud               Based on wonderfall/nextcloud                   5                    [OK]docker.io   docker.io/aheimsbakk/nextcloud            DEPRECATED in favor of the Nextcloud webin...   2                    [OK]docker.io   docker.io/crazymax/nextcloud              Nextcloud Docker image based on Alpine Lin...   1docker.io   docker.io/lsioarmhf/nextcloud-aarch64     ARM64 based Linuxserver.io image of nextcl...   1docker.io   docker.io/zerpex/nextcloud-ocdl           Nextcloud with ocDownloader pre-requiresites    1                    [OK]docker.io   docker.io/avhost/docker-nextcloud         nextcloud as docker service                     0                    [OK]docker.io   docker.io/bunix42/nextcloud               Docker Image for Nextcloud, based on the o...   0docker.io   docker.io/dheaps/nextcloud-cron           Cron service for Nextcloud                      0                    [OK]docker.io   docker.io/ftsystems/nextcloud             Nextcloud container based on the owncloud ...   0docker.io   docker.io/gorlug/nextcloud                https://nextcloud.com/                          0                    [OK]docker.io   docker.io/sesceu/nextcloud                nextcloud with cron and imap-auth               0                    [OK]docker.io   docker.io/trollin/nextcloud                                                               0docker.io   docker.io/whatwedo/nextcloud              Nextcloud powered by Apache                     0                    [OK]docker.io   docker.io/zyrill/nextcloud                 Nextcloud v12 based on php:fpm-alpine          0</code></pre><p>依旧老规矩，使用官方镜像</p><p><strong>第三步</strong><br>拉取官方的Docker镜像</p><pre><code>[root@izt8mvnno1ny1dz ~]# docker pull docker.io/nextcloudUsing default tag: latestTrying to pull repository docker.io/library/nextcloud ...latest: Pulling from docker.io/library/nextcloud802b00ed6f79: Already exists59f5a5a895f8: Pull complete6898b2dbcfeb: Pull complete8e0903aaa47e: Pull complete2961af1e196a: Pull complete71f7016f79a0: Pull complete5e1a48e5719c: Pull complete7ae5291984f3: Pull complete725b65166f31: Pull completee90b121f9520: Pull completeb5a272809bbd: Pull completef045f3ae0e2b: Pull complete7f51c9ea2d8e: Pull complete5aa9d0ed164a: Pull complete8eea44e2bfc7: Pull complete5302ebd5abce: Pull complete78f0335decb3: Pull complete1a2f85124682: Pull completeed4cec78a159: Pull completea68e1b656d3d: Pull completed0b66f00fda7: Pull complete45c9777c18b5: Pull completeDigest: sha256:c8d1091cc86051dc5e8de0114e3121fe0562cb417c56f2644ed92838008d8806Status: Downloaded newer image for docker.io/nextcloud:latest</code></pre><p>镜像拉取完成</p><p><strong>第四步</strong><br>容器拉取到本地之后，就该启用容器了。</p><pre><code>[root@izt8mvnno1ny1dz ~]# docker run -d --restart=always --name nextcloud -p 80:80 -v /root/nextcloud:/data docker.io/nextcloudae96013c7f0ab05194a4488d1fa61b1c6274c272a53b3d418418b56a88e2e230[root@izt8mvnno1ny1dz ~]# docker ps -aCONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                NAMESae96013c7f0a        docker.io/nextcloud   &quot;/entrypoint.sh ap...&quot;   6 seconds ago       Up 6 seconds        0.0.0.0:80-&gt;80/tcp   nextcloud</code></pre><p>这里可以看到已经在后台运行了，这就部署好了。</p><p><strong>第五步</strong><br>在浏览器地址栏输入你的IP地址，可以访问到<code>Nextcloud</code>的<code>Web</code>页面。<br><img alt data-src="https://image.3001.net/images/20181123/15429718173586.jpg" class="lozad"><br>如果访问不到，先重启一下docker服务，命令如下：</p><pre><code>[root@izt8mvnno1ny1dz ~]# systemctl restart docker</code></pre><p>如果还是不行，那么就关闭防火墙服务吧。</p><pre><code>[root@izt8mvnno1ny1dz ~]# systemctl stop firewalld[root@izt8mvnno1ny1dz ~]# systemctl status firewalld    //查看一下防火墙状态● firewalld.service - firewalld - dynamic firewall daemonLoaded: loaded (/usr/lib/systemd/system/firewalld.service; disabled; vendor preset: enabled)Active: inactive (dead)    Docs: man:firewalld(1)Sep 20 13:44:49 izt8mvnno1ny1dz systemd[1]: Starting firewalld - dynamic firewall daemon...Sep 20 13:44:50 izt8mvnno1ny1dz systemd[1]: Started firewalld - dynamic firewall daemon.Sep 20 13:44:57 izt8mvnno1ny1dz systemd[1]: Stopping firewalld - dynamic firewall daemon...Sep 20 13:44:57 izt8mvnno1ny1dz systemd[1]: Stopped firewalld - dynamic firewall daemon.Sep 20 15:33:49 izt8mvnno1ny1dz systemd[1]: Starting firewalld - dynamic firewall daemon...Sep 20 15:33:49 izt8mvnno1ny1dz systemd[1]: Started firewalld - dynamic firewall daemon.Sep 20 15:34:58 izt8mvnno1ny1dz systemd[1]: Stopping firewalld - dynamic firewall daemon...Sep 20 15:34:58 izt8mvnno1ny1dz systemd[1]: Stopped firewalld - dynamic firewall daemon.</code></pre><p>接着完成完成网盘管理员账号的注册，使用默认数据库（当然，也可以起一个<code>Mysql</code>的容器，用来连接），然后完成注册，就可以登录了。<br><img alt data-src="https://image.3001.net/images/20181123/15429718196488.jpg" class="lozad"><br>这样就愉快的搭建完成了，是不是五分钟快速搭建！</p>]]></content>
+    <content type="html"><![CDATA[<p>各位大佬好，，，萌新顾北清又回来更新了，今天要<strong>快速</strong>部署一个人网盘。<br>有多快呢，，，5分钟吧，因为我们使用Docker部署。<br>Docker基础可以看看我之前的博文。（<a href="http://www.gubeiqing.cn/2018/06/03/docker01/">点这里点这里</a>）<br>那么，，，开始吧。</p><p><strong>实验环境：小伙伴的阿里云服务器，安装的是Centos7的系统，要安装的网盘叫<code>Nextcloud</code></strong></p><p>下面开始安装<br><strong>第一步</strong><br>老规矩，先安装<code>Docker</code>环境.<br>命令如下：</p><pre><code>[root@izt8mvnno1ny1dz ~]# yum install -y dockerLoaded plugins: fastestmirrorbase                                                                                                                                    | 3.6 kB  00:00:00epel                                                                                                                                    | 3.2 kB  00:00:00extras                                                                                                                                  | 3.4 kB  00:00:00updates                                                                                                                                 | 3.4 kB  00:00:00Loading mirror speeds from cached hostfilePackage 2:docker-1.13.1-74.git6e3bb8e.el7.centos.x86_64 already installed and latest versionNothing to do</code></pre><p>我这里已经安装完成就不重复安装了。<br>启动docker并设置自启：</p><pre><code>[root@izt8mvnno1ny1dz ~]# systemctl start docker[root@izt8mvnno1ny1dz ~]# systemctl enable docker</code></pre><p><strong>第二步</strong><br>查找<code>Nextcloud</code>网盘的镜像</p><pre><code>[root@izt8mvnno1ny1dz ~]# docker search nextcloudINDEX       NAME                                      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATEDdocker.io   docker.io/nextcloud                       A safe home for all your data                   561       [OK]docker.io   docker.io/linuxserver/nextcloud           A Nextcloud container, brought to you by L...   81docker.io   docker.io/greyltc/nextcloud               Nextcloud: a safe home for all your data. ...   38                   [OK]docker.io   docker.io/wonderfall/nextcloud            All-in-one alpine-based Nextcloud image.        36                   [OK]docker.io   docker.io/rootlogin/nextcloud             Nextcloud docker image running on top of N...   17                   [OK]docker.io   docker.io/lsioarmhf/nextcloud             ARMHF based Linuxserver.io image of nextcloud   9docker.io   docker.io/arm32v7/nextcloud               A safe home for all your data                   8docker.io   docker.io/benyanke/nextcloud              Fork of wonderfall/nextcloud, since it is ...   7                    [OK]docker.io   docker.io/ownyourbits/nextcloudpi         NextCloud ARM docker container                  7docker.io   docker.io/sameersbn/nextcloud             Dockerized Nextcloud                            7                    [OK]docker.io   docker.io/ownyourbits/nextcloudpi-armhf   NextCloudPi ARM docker container                6docker.io   docker.io/hoellen/nextcloud               Based on wonderfall/nextcloud                   5                    [OK]docker.io   docker.io/aheimsbakk/nextcloud            DEPRECATED in favor of the Nextcloud webin...   2                    [OK]docker.io   docker.io/crazymax/nextcloud              Nextcloud Docker image based on Alpine Lin...   1docker.io   docker.io/lsioarmhf/nextcloud-aarch64     ARM64 based Linuxserver.io image of nextcl...   1docker.io   docker.io/zerpex/nextcloud-ocdl           Nextcloud with ocDownloader pre-requiresites    1                    [OK]docker.io   docker.io/avhost/docker-nextcloud         nextcloud as docker service                     0                    [OK]docker.io   docker.io/bunix42/nextcloud               Docker Image for Nextcloud, based on the o...   0docker.io   docker.io/dheaps/nextcloud-cron           Cron service for Nextcloud                      0                    [OK]docker.io   docker.io/ftsystems/nextcloud             Nextcloud container based on the owncloud ...   0docker.io   docker.io/gorlug/nextcloud                https://nextcloud.com/                          0                    [OK]docker.io   docker.io/sesceu/nextcloud                nextcloud with cron and imap-auth               0                    [OK]docker.io   docker.io/trollin/nextcloud                                                               0docker.io   docker.io/whatwedo/nextcloud              Nextcloud powered by Apache                     0                    [OK]docker.io   docker.io/zyrill/nextcloud                 Nextcloud v12 based on php:fpm-alpine          0</code></pre><p>依旧老规矩，使用官方镜像</p><p><strong>第三步</strong><br>拉取官方的Docker镜像</p><pre><code>[root@izt8mvnno1ny1dz ~]# docker pull docker.io/nextcloudUsing default tag: latestTrying to pull repository docker.io/library/nextcloud ...latest: Pulling from docker.io/library/nextcloud802b00ed6f79: Already exists59f5a5a895f8: Pull complete6898b2dbcfeb: Pull complete8e0903aaa47e: Pull complete2961af1e196a: Pull complete71f7016f79a0: Pull complete5e1a48e5719c: Pull complete7ae5291984f3: Pull complete725b65166f31: Pull completee90b121f9520: Pull completeb5a272809bbd: Pull completef045f3ae0e2b: Pull complete7f51c9ea2d8e: Pull complete5aa9d0ed164a: Pull complete8eea44e2bfc7: Pull complete5302ebd5abce: Pull complete78f0335decb3: Pull complete1a2f85124682: Pull completeed4cec78a159: Pull completea68e1b656d3d: Pull completed0b66f00fda7: Pull complete45c9777c18b5: Pull completeDigest: sha256:c8d1091cc86051dc5e8de0114e3121fe0562cb417c56f2644ed92838008d8806Status: Downloaded newer image for docker.io/nextcloud:latest</code></pre><p>镜像拉取完成</p><p><strong>第四步</strong><br>容器拉取到本地之后，就该启用容器了。</p><pre><code>[root@izt8mvnno1ny1dz ~]# docker run -d --restart=always --name nextcloud -p 80:80 -v /root/nextcloud:/data docker.io/nextcloudae96013c7f0ab05194a4488d1fa61b1c6274c272a53b3d418418b56a88e2e230[root@izt8mvnno1ny1dz ~]# docker ps -aCONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                NAMESae96013c7f0a        docker.io/nextcloud   &quot;/entrypoint.sh ap...&quot;   6 seconds ago       Up 6 seconds        0.0.0.0:80-&gt;80/tcp   nextcloud</code></pre><p>这里可以看到已经在后台运行了，这就部署好了。</p><p><strong>第五步</strong><br>在浏览器地址栏输入你的IP地址，可以访问到<code>Nextcloud</code>的<code>Web</code>页面。<br><img alt data-src="https://image.3001.net/images/20181123/15429718173586.jpg" class="lozad"><br>如果访问不到，先重启一下docker服务，命令如下：</p><pre><code>[root@izt8mvnno1ny1dz ~]# systemctl restart docker</code></pre><p>如果还是不行，那么就关闭防火墙服务吧。</p><pre><code>[root@izt8mvnno1ny1dz ~]# systemctl stop firewalld[root@izt8mvnno1ny1dz ~]# systemctl status firewalld    //查看一下防火墙状态● firewalld.service - firewalld - dynamic firewall daemonLoaded: loaded (/usr/lib/systemd/system/firewalld.service; disabled; vendor preset: enabled)Active: inactive (dead)    Docs: man:firewalld(1)Sep 20 13:44:49 izt8mvnno1ny1dz systemd[1]: Starting firewalld - dynamic firewall daemon...Sep 20 13:44:50 izt8mvnno1ny1dz systemd[1]: Started firewalld - dynamic firewall daemon.Sep 20 13:44:57 izt8mvnno1ny1dz systemd[1]: Stopping firewalld - dynamic firewall daemon...Sep 20 13:44:57 izt8mvnno1ny1dz systemd[1]: Stopped firewalld - dynamic firewall daemon.Sep 20 15:33:49 izt8mvnno1ny1dz systemd[1]: Starting firewalld - dynamic firewall daemon...Sep 20 15:33:49 izt8mvnno1ny1dz systemd[1]: Started firewalld - dynamic firewall daemon.Sep 20 15:34:58 izt8mvnno1ny1dz systemd[1]: Stopping firewalld - dynamic firewall daemon...Sep 20 15:34:58 izt8mvnno1ny1dz systemd[1]: Stopped firewalld - dynamic firewall daemon.</code></pre><p>接着完成完成网盘管理员账号的注册，使用默认数据库（当然，也可以起一个<code>Mysql</code>的容器，用来连接），然后完成注册，就可以登录了。<br><img alt data-src="https://image.3001.net/images/20181123/15429718196488.jpg" class="lozad"><br>这样就愉快的搭建完成了，是不是五分钟快速搭建！</p>]]></content>
     
     <summary type="html">
     
@@ -116,19 +116,46 @@
     
     </summary>
     
-      <category term="Cloud" scheme="http://yoursite.com/categories/Cloud/"/>
+      <category term="Cloud" scheme="https://www.gubeiqing.cn/categories/Cloud/"/>
     
     
-      <category term="Cloud" scheme="http://yoursite.com/tags/Cloud/"/>
+      <category term="Cloud" scheme="https://www.gubeiqing.cn/tags/Cloud/"/>
     
-      <category term="Docker" scheme="http://yoursite.com/tags/Docker/"/>
+      <category term="Docker" scheme="https://www.gubeiqing.cn/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>KVM使用</title>
+    <link href="https://www.gubeiqing.cn/2018/10/08/cloud03/"/>
+    <id>https://www.gubeiqing.cn/2018/10/08/cloud03/</id>
+    <published>2018-10-08T06:57:06.000Z</published>
+    <updated>2019-10-04T04:05:18.713Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>这里使用的是Ubuntu18.04桌面版虚拟机</strong><br>关于KVM可以看一下我<a href="https://www.cnblogs.com/Timesi/p/9565456.html" target="_blank" rel="noopener">之前的博客</a>,有一些简单的介绍。<br>1.在打开虚拟机之前先开启此虚拟机的虚拟化功能。<br><img alt data-src="https://image.3001.net/images/20181123/15429714916274.jpg" class="lozad"><br>2.安装<code>KVM</code>及其依赖项</p><pre><code>wy@wy-virtual-machine:~$ sudo apt install qemu qemu-kvm libvirt-bin bridge-utils  virt-manager</code></pre><p>3.安装完成后，启用<code>libvirtd服务</code>(默认是开启的)</p><pre><code>wy@wy-virtual-machine:~$ sudo service libvirtd startwy@wy-virtual-machine:~$ sudo update-rc.d libvirtd enable</code></pre><p>4.启动之后查看一下<code>libvirtd服务</code>的运行状态</p><pre><code>wy@wy-virtual-machine:~$ service libvirtd status● libvirtd.service - Virtualization daemonLoaded: loaded (/lib/systemd/system/libvirtd.service; enabled; vendor preset:Active: active (running) since Tue 2018-09-18 18:44:55 CST; 1min 56s ago    Docs: man:libvirtd(8)        https://libvirt.orgMain PID: 6006 (libvirtd)    Tasks: 19 (limit: 32768)CGroup: /system.slice/libvirtd.service        ├─6006 /usr/sbin/libvirtd        ├─6701 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default        └─6702 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default9月 18 18:44:55 wy-virtual-machine systemd[1]: Started Virtualization daemon.9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: started, version 2.79 cachesiz9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: compile time options: IPv6 GNU9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, IP range 192.168.129月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, sockets bound exclu9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: reading /etc/resolv.conf9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: using nameserver 127.0.0.53#539月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /etc/hosts - 7 addresses9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /var/lib/libvirt/dnsmasq/9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: read /var/lib/libvirt/dns</code></pre><p>可以看到正在运行。<br>到此<code>KVM</code>安装完成。</p><hr><p>接着就可以创建虚拟机了，首先通过<code>virt-manager</code>命令打开<code>Virtual Machine Manager</code>。<br><img alt data-src="https://image.3001.net/images/20181123/15429714932785.jpg" class="lozad"><br>然后开始新建虚拟机。<br><img alt data-src="https://image.3001.net/images/20181123/15429714952486.jpg" class="lozad"><br>选择镜像<br><img alt data-src="https://image.3001.net/images/20181123/15429714972102.jpg" class="lozad"><br>配置虚拟机规格<br><img alt data-src="https://image.3001.net/images/20181123/15429714981193.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715015555.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715037544.jpg" class="lozad"><br>接着创建<br><img alt data-src="https://image.3001.net/images/20181123/15429715045047.jpg" class="lozad"><br>然后就好啦。<br><img alt data-src="https://image.3001.net/images/20181123/15429715062667.jpg" class="lozad"></p><ul><li><input checked disabled type="checkbox"> 虚拟机中安装虚拟机达成</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;这里使用的是Ubuntu18.04桌面版虚拟机&lt;/strong&gt;&lt;br&gt;关于KVM可以看一下我&lt;a href=&quot;https://www.cnblogs.com/Timesi/p/9565456.html&quot; target=&quot;_blank&quot; rel=&quot;noope
+      
+    
+    </summary>
+    
+      <category term="Cloud" scheme="https://www.gubeiqing.cn/categories/Cloud/"/>
+    
+    
+      <category term="Cloud" scheme="https://www.gubeiqing.cn/tags/Cloud/"/>
+    
+      <category term="虚拟化" scheme="https://www.gubeiqing.cn/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>CTF-SQL注入1</title>
-    <link href="http://yoursite.com/2018/10/08/CTF-SQL1/"/>
-    <id>http://yoursite.com/2018/10/08/CTF-SQL1/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/08/CTF-SQL1/"/>
+    <id>https://www.gubeiqing.cn/2018/10/08/CTF-SQL1/</id>
     <published>2018-10-08T06:57:06.000Z</published>
     <updated>2019-10-04T04:04:41.834Z</updated>
     
@@ -144,73 +171,19 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://yoursite.com/categories/CTF/"/>
+      <category term="CTF" scheme="https://www.gubeiqing.cn/categories/CTF/"/>
     
     
-      <category term="CTF" scheme="http://yoursite.com/tags/CTF/"/>
+      <category term="CTF" scheme="https://www.gubeiqing.cn/tags/CTF/"/>
     
-      <category term="MySQL" scheme="http://yoursite.com/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>foreach函数</title>
-    <link href="http://yoursite.com/2018/10/08/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/"/>
-    <id>http://yoursite.com/2018/10/08/php变量覆盖问题/</id>
-    <published>2018-10-08T06:57:06.000Z</published>
-    <updated>2019-10-04T04:13:06.910Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="foreach函数"><a href="#foreach函数" class="headerlink" title="foreach函数"></a>foreach函数</h3><p>PHP中遍历有一个遍历数组的函数–foreach。<br>foreach有两种用法，一种直接遍历数组然后输出值，另一种不光输出值，还输出与值对应的键。</p><p>第一种：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$array = array(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;);</span><br><span class="line">foreach($array as $values)&#123;</span><br><span class="line">    echo $values;</span><br><span class="line">    echo &quot;&lt;br /&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606672129830.jpg" class="lozad"></p><p>第二种：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$array = array(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;);</span><br><span class="line">foreach($array as $key =&gt; $values)&#123;</span><br><span class="line">    echo $key.&quot;-&gt;&quot;.$values;</span><br><span class="line">    echo &quot;&lt;br /&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606674259418.jpg" class="lozad"></p><p>如果是关联数组使用第二种方法就可以输出键值对。</p><p>###变量覆盖</p><p><strong>1.$$变量覆盖</strong><br>举个最简单的例子：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a=10;</span><br><span class="line">$array = array(&apos;a&apos;=&gt;1,&apos;b&apos;=&gt;2,&apos;c&apos;=&gt;3);</span><br><span class="line">foreach ($array as $key=&gt;$value)  </span><br><span class="line">&#123;</span><br><span class="line">        $$key = $value;</span><br><span class="line">&#125;</span><br><span class="line">echo $a;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>我先定义了一个变量a并初始化为10，查看一下输出：<br><img alt data-src="https://image.3001.net/images/20190616/1560671487540.jpg" class="lozad"><br>发现输出的结果中，变量a的值变成了1，就是因为变量覆盖。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$array = array(&apos;a&apos;=&gt;1,&apos;b&apos;=&gt;2,&apos;c&apos;=&gt;3);</span><br><span class="line">foreach ($array as $key=&gt;$value)  </span><br><span class="line">&#123;</span><br><span class="line">    $$key = $value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在这段语句中，<code>foreach ($array as $key=&gt;$value)</code>输出的key应该是<code>a，b,c</code>,输出的value 应该是<code>1,2,3</code>,但是到下一句之后，使用<code>$$key</code>使得原来的<code>a</code>变成了<code>$a</code>，而value的值没有变化，就使得foreach里面的语句变成了<code>$a=1</code>,<code>$b=2</code>,<code>$c=3</code>，这样一来，<code>$a=1</code>就将之前的<code>$a=10</code>，覆盖了，所以输出的结果是<code>$a=1</code>。</p><p><strong>2.extract()变量覆盖</strong><br>源自<a href="http://www.w3school.com.cn/php/func_array_extract.asp" target="_blank" rel="noopener">W3school</a>。</p><p>（1）语法</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extract(array,extract_rules,prefix)</span><br></pre></td></tr></table></figure><p>（2）定义和用法<br>extract() 函数从数组中将变量导入到当前的符号表。<br>该函数使用数组键名作为变量名，使用数组键值作为变量值。针对数组中的每个元素，将在当前符号表中创建对应的一个变量。<br>第二个参数 type 用于指定当某个变量已经存在，而数组中又有同名元素时，extract() 函数如何对待这样的冲突。<br>该函数返回成功导入到符号表中的变量数目。</p><p>（3）举例</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a = &quot;Original&quot;;</span><br><span class="line">$my_array = array(&quot;a&quot; =&gt; &quot;Cat&quot;,&quot;b&quot; =&gt; &quot;Dog&quot;, &quot;c&quot; =&gt; &quot;Horse&quot;);</span><br><span class="line">extract($my_array);</span><br><span class="line">echo &quot;\$a = $a; \$b = $b; \$c = $c&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606724931566.jpg" class="lozad"><br>可以看到$a原来的值被覆盖。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;foreach函数&quot;&gt;&lt;a href=&quot;#foreach函数&quot; class=&quot;headerlink&quot; title=&quot;foreach函数&quot;&gt;&lt;/a&gt;foreach函数&lt;/h3&gt;&lt;p&gt;PHP中遍历有一个遍历数组的函数–foreach。&lt;br&gt;foreach有两种用法，
-      
-    
-    </summary>
-    
-      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
-    
-    
-      <category term="CTF" scheme="http://yoursite.com/tags/CTF/"/>
-    
-      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>KVM使用</title>
-    <link href="http://yoursite.com/2018/10/08/cloud03/"/>
-    <id>http://yoursite.com/2018/10/08/cloud03/</id>
-    <published>2018-10-08T06:57:06.000Z</published>
-    <updated>2019-10-04T04:05:18.713Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>这里使用的是Ubuntu18.04桌面版虚拟机</strong><br>关于KVM可以看一下我<a href="https://www.cnblogs.com/Timesi/p/9565456.html" target="_blank" rel="noopener">之前的博客</a>,有一些简单的介绍。<br>1.在打开虚拟机之前先开启此虚拟机的虚拟化功能。<br><img alt data-src="https://image.3001.net/images/20181123/15429714916274.jpg" class="lozad"><br>2.安装<code>KVM</code>及其依赖项</p><pre><code>wy@wy-virtual-machine:~$ sudo apt install qemu qemu-kvm libvirt-bin bridge-utils  virt-manager</code></pre><p>3.安装完成后，启用<code>libvirtd服务</code>(默认是开启的)</p><pre><code>wy@wy-virtual-machine:~$ sudo service libvirtd startwy@wy-virtual-machine:~$ sudo update-rc.d libvirtd enable</code></pre><p>4.启动之后查看一下<code>libvirtd服务</code>的运行状态</p><pre><code>wy@wy-virtual-machine:~$ service libvirtd status● libvirtd.service - Virtualization daemonLoaded: loaded (/lib/systemd/system/libvirtd.service; enabled; vendor preset:Active: active (running) since Tue 2018-09-18 18:44:55 CST; 1min 56s ago    Docs: man:libvirtd(8)        https://libvirt.orgMain PID: 6006 (libvirtd)    Tasks: 19 (limit: 32768)CGroup: /system.slice/libvirtd.service        ├─6006 /usr/sbin/libvirtd        ├─6701 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default        └─6702 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default9月 18 18:44:55 wy-virtual-machine systemd[1]: Started Virtualization daemon.9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: started, version 2.79 cachesiz9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: compile time options: IPv6 GNU9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, IP range 192.168.129月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, sockets bound exclu9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: reading /etc/resolv.conf9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: using nameserver 127.0.0.53#539月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /etc/hosts - 7 addresses9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /var/lib/libvirt/dnsmasq/9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: read /var/lib/libvirt/dns</code></pre><p>可以看到正在运行。<br>到此<code>KVM</code>安装完成。</p><hr><p>接着就可以创建虚拟机了，首先通过<code>virt-manager</code>命令打开<code>Virtual Machine Manager</code>。<br><img alt data-src="https://image.3001.net/images/20181123/15429714932785.jpg" class="lozad"><br>然后开始新建虚拟机。<br><img alt data-src="https://image.3001.net/images/20181123/15429714952486.jpg" class="lozad"><br>选择镜像<br><img alt data-src="https://image.3001.net/images/20181123/15429714972102.jpg" class="lozad"><br>配置虚拟机规格<br><img alt data-src="https://image.3001.net/images/20181123/15429714981193.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715015555.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715037544.jpg" class="lozad"><br>接着创建<br><img alt data-src="https://image.3001.net/images/20181123/15429715045047.jpg" class="lozad"><br>然后就好啦。<br><img alt data-src="https://image.3001.net/images/20181123/15429715062667.jpg" class="lozad"></p><ul><li><input checked disabled type="checkbox"> 虚拟机中安装虚拟机达成</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;strong&gt;这里使用的是Ubuntu18.04桌面版虚拟机&lt;/strong&gt;&lt;br&gt;关于KVM可以看一下我&lt;a href=&quot;https://www.cnblogs.com/Timesi/p/9565456.html&quot; target=&quot;_blank&quot; rel=&quot;noope
-      
-    
-    </summary>
-    
-      <category term="Cloud" scheme="http://yoursite.com/categories/Cloud/"/>
-    
-    
-      <category term="Cloud" scheme="http://yoursite.com/tags/Cloud/"/>
-    
-      <category term="虚拟化" scheme="http://yoursite.com/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="MySQL" scheme="https://www.gubeiqing.cn/tags/MySQL/"/>
     
   </entry>
   
   <entry>
     <title>CTF-SQL注入2</title>
-    <link href="http://yoursite.com/2018/10/08/CTF-SQL%E6%B3%A8%E5%85%A52/"/>
-    <id>http://yoursite.com/2018/10/08/CTF-SQL注入2/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/08/CTF-SQL%E6%B3%A8%E5%85%A52/"/>
+    <id>https://www.gubeiqing.cn/2018/10/08/CTF-SQL注入2/</id>
     <published>2018-10-08T06:57:06.000Z</published>
     <updated>2019-10-04T04:04:37.253Z</updated>
     
@@ -226,19 +199,46 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://yoursite.com/categories/CTF/"/>
+      <category term="CTF" scheme="https://www.gubeiqing.cn/categories/CTF/"/>
     
     
-      <category term="CTF" scheme="http://yoursite.com/tags/CTF/"/>
+      <category term="CTF" scheme="https://www.gubeiqing.cn/tags/CTF/"/>
     
-      <category term="MySQL" scheme="http://yoursite.com/tags/MySQL/"/>
+      <category term="MySQL" scheme="https://www.gubeiqing.cn/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>foreach函数</title>
+    <link href="https://www.gubeiqing.cn/2018/10/08/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/"/>
+    <id>https://www.gubeiqing.cn/2018/10/08/php变量覆盖问题/</id>
+    <published>2018-10-08T06:57:06.000Z</published>
+    <updated>2019-10-04T04:13:06.910Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="foreach函数"><a href="#foreach函数" class="headerlink" title="foreach函数"></a>foreach函数</h3><p>PHP中遍历有一个遍历数组的函数–foreach。<br>foreach有两种用法，一种直接遍历数组然后输出值，另一种不光输出值，还输出与值对应的键。</p><p>第一种：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$array = array(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;);</span><br><span class="line">foreach($array as $values)&#123;</span><br><span class="line">    echo $values;</span><br><span class="line">    echo &quot;&lt;br /&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606672129830.jpg" class="lozad"></p><p>第二种：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$array = array(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;);</span><br><span class="line">foreach($array as $key =&gt; $values)&#123;</span><br><span class="line">    echo $key.&quot;-&gt;&quot;.$values;</span><br><span class="line">    echo &quot;&lt;br /&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606674259418.jpg" class="lozad"></p><p>如果是关联数组使用第二种方法就可以输出键值对。</p><p>###变量覆盖</p><p><strong>1.$$变量覆盖</strong><br>举个最简单的例子：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a=10;</span><br><span class="line">$array = array(&apos;a&apos;=&gt;1,&apos;b&apos;=&gt;2,&apos;c&apos;=&gt;3);</span><br><span class="line">foreach ($array as $key=&gt;$value)  </span><br><span class="line">&#123;</span><br><span class="line">        $$key = $value;</span><br><span class="line">&#125;</span><br><span class="line">echo $a;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>我先定义了一个变量a并初始化为10，查看一下输出：<br><img alt data-src="https://image.3001.net/images/20190616/1560671487540.jpg" class="lozad"><br>发现输出的结果中，变量a的值变成了1，就是因为变量覆盖。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$array = array(&apos;a&apos;=&gt;1,&apos;b&apos;=&gt;2,&apos;c&apos;=&gt;3);</span><br><span class="line">foreach ($array as $key=&gt;$value)  </span><br><span class="line">&#123;</span><br><span class="line">    $$key = $value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在这段语句中，<code>foreach ($array as $key=&gt;$value)</code>输出的key应该是<code>a，b,c</code>,输出的value 应该是<code>1,2,3</code>,但是到下一句之后，使用<code>$$key</code>使得原来的<code>a</code>变成了<code>$a</code>，而value的值没有变化，就使得foreach里面的语句变成了<code>$a=1</code>,<code>$b=2</code>,<code>$c=3</code>，这样一来，<code>$a=1</code>就将之前的<code>$a=10</code>，覆盖了，所以输出的结果是<code>$a=1</code>。</p><p><strong>2.extract()变量覆盖</strong><br>源自<a href="http://www.w3school.com.cn/php/func_array_extract.asp" target="_blank" rel="noopener">W3school</a>。</p><p>（1）语法</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extract(array,extract_rules,prefix)</span><br></pre></td></tr></table></figure><p>（2）定义和用法<br>extract() 函数从数组中将变量导入到当前的符号表。<br>该函数使用数组键名作为变量名，使用数组键值作为变量值。针对数组中的每个元素，将在当前符号表中创建对应的一个变量。<br>第二个参数 type 用于指定当某个变量已经存在，而数组中又有同名元素时，extract() 函数如何对待这样的冲突。<br>该函数返回成功导入到符号表中的变量数目。</p><p>（3）举例</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a = &quot;Original&quot;;</span><br><span class="line">$my_array = array(&quot;a&quot; =&gt; &quot;Cat&quot;,&quot;b&quot; =&gt; &quot;Dog&quot;, &quot;c&quot; =&gt; &quot;Horse&quot;);</span><br><span class="line">extract($my_array);</span><br><span class="line">echo &quot;\$a = $a; \$b = $b; \$c = $c&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>输出：<br><img alt data-src="https://image.3001.net/images/20190616/15606724931566.jpg" class="lozad"><br>可以看到$a原来的值被覆盖。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;foreach函数&quot;&gt;&lt;a href=&quot;#foreach函数&quot; class=&quot;headerlink&quot; title=&quot;foreach函数&quot;&gt;&lt;/a&gt;foreach函数&lt;/h3&gt;&lt;p&gt;PHP中遍历有一个遍历数组的函数–foreach。&lt;br&gt;foreach有两种用法，
+      
+    
+    </summary>
+    
+      <category term="PHP" scheme="https://www.gubeiqing.cn/categories/PHP/"/>
+    
+    
+      <category term="CTF" scheme="https://www.gubeiqing.cn/tags/CTF/"/>
+    
+      <category term="PHP" scheme="https://www.gubeiqing.cn/tags/PHP/"/>
     
   </entry>
   
   <entry>
     <title>Linux下完全删除用户</title>
-    <link href="http://yoursite.com/2018/10/08/linux02/"/>
-    <id>http://yoursite.com/2018/10/08/linux02/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/08/linux02/"/>
+    <id>https://www.gubeiqing.cn/2018/10/08/linux02/</id>
     <published>2018-10-08T06:54:33.000Z</published>
     <updated>2019-08-21T02:45:23.374Z</updated>
     
@@ -250,17 +250,17 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+      <category term="Linux" scheme="https://www.gubeiqing.cn/categories/Linux/"/>
     
     
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+      <category term="Linux" scheme="https://www.gubeiqing.cn/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>MySQL用户远程登录问题</title>
-    <link href="http://yoursite.com/2018/10/08/mysql04/"/>
-    <id>http://yoursite.com/2018/10/08/mysql04/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/08/mysql04/"/>
+    <id>https://www.gubeiqing.cn/2018/10/08/mysql04/</id>
     <published>2018-10-08T06:44:48.000Z</published>
     <updated>2019-08-21T02:45:33.893Z</updated>
     
@@ -272,17 +272,17 @@
     
     </summary>
     
-      <category term="MySQL" scheme="http://yoursite.com/categories/MySQL/"/>
+      <category term="MySQL" scheme="https://www.gubeiqing.cn/categories/MySQL/"/>
     
     
-      <category term="MySQL" scheme="http://yoursite.com/tags/MySQL/"/>
+      <category term="MySQL" scheme="https://www.gubeiqing.cn/tags/MySQL/"/>
     
   </entry>
   
   <entry>
     <title>简述openstack</title>
-    <link href="http://yoursite.com/2018/10/08/cloud02/"/>
-    <id>http://yoursite.com/2018/10/08/cloud02/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/08/cloud02/"/>
+    <id>https://www.gubeiqing.cn/2018/10/08/cloud02/</id>
     <published>2018-10-08T06:43:05.000Z</published>
     <updated>2019-10-04T04:05:14.849Z</updated>
     
@@ -298,19 +298,19 @@
     
     </summary>
     
-      <category term="Cloud" scheme="http://yoursite.com/categories/Cloud/"/>
+      <category term="Cloud" scheme="https://www.gubeiqing.cn/categories/Cloud/"/>
     
     
-      <category term="Cloud" scheme="http://yoursite.com/tags/Cloud/"/>
+      <category term="Cloud" scheme="https://www.gubeiqing.cn/tags/Cloud/"/>
     
-      <category term="openstack" scheme="http://yoursite.com/tags/openstack/"/>
+      <category term="openstack" scheme="https://www.gubeiqing.cn/tags/openstack/"/>
     
   </entry>
   
   <entry>
     <title>简述KVM架构和Xen架构</title>
-    <link href="http://yoursite.com/2018/10/08/cloud01/"/>
-    <id>http://yoursite.com/2018/10/08/cloud01/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/08/cloud01/"/>
+    <id>https://www.gubeiqing.cn/2018/10/08/cloud01/</id>
     <published>2018-10-08T06:41:06.000Z</published>
     <updated>2019-10-04T04:05:12.469Z</updated>
     
@@ -326,19 +326,19 @@
     
     </summary>
     
-      <category term="Cloud" scheme="http://yoursite.com/categories/Cloud/"/>
+      <category term="Cloud" scheme="https://www.gubeiqing.cn/categories/Cloud/"/>
     
     
-      <category term="Cloud" scheme="http://yoursite.com/tags/Cloud/"/>
+      <category term="Cloud" scheme="https://www.gubeiqing.cn/tags/Cloud/"/>
     
-      <category term="虚拟化" scheme="http://yoursite.com/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+      <category term="虚拟化" scheme="https://www.gubeiqing.cn/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>PHP接口</title>
-    <link href="http://yoursite.com/2018/10/06/php08/"/>
-    <id>http://yoursite.com/2018/10/06/php08/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/06/php08/"/>
+    <id>https://www.gubeiqing.cn/2018/10/06/php08/</id>
     <published>2018-10-06T12:27:55.000Z</published>
     <updated>2019-10-04T04:12:58.929Z</updated>
     
@@ -355,17 +355,17 @@
     
     </summary>
     
-      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
+      <category term="PHP" scheme="https://www.gubeiqing.cn/categories/PHP/"/>
     
     
-      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+      <category term="PHP" scheme="https://www.gubeiqing.cn/tags/PHP/"/>
     
   </entry>
   
   <entry>
     <title>PHP继承</title>
-    <link href="http://yoursite.com/2018/10/06/php07/"/>
-    <id>http://yoursite.com/2018/10/06/php07/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/06/php07/"/>
+    <id>https://www.gubeiqing.cn/2018/10/06/php07/</id>
     <published>2018-10-06T12:26:37.000Z</published>
     <updated>2019-10-04T04:12:50.842Z</updated>
     
@@ -380,17 +380,17 @@
     
     </summary>
     
-      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
+      <category term="PHP" scheme="https://www.gubeiqing.cn/categories/PHP/"/>
     
     
-      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+      <category term="PHP" scheme="https://www.gubeiqing.cn/tags/PHP/"/>
     
   </entry>
   
   <entry>
     <title>PHP匿名函数</title>
-    <link href="http://yoursite.com/2018/10/06/php06/"/>
-    <id>http://yoursite.com/2018/10/06/php06/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/06/php06/"/>
+    <id>https://www.gubeiqing.cn/2018/10/06/php06/</id>
     <published>2018-10-06T12:25:43.000Z</published>
     <updated>2019-10-04T04:12:44.394Z</updated>
     
@@ -408,17 +408,17 @@
     
     </summary>
     
-      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
+      <category term="PHP" scheme="https://www.gubeiqing.cn/categories/PHP/"/>
     
     
-      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+      <category term="PHP" scheme="https://www.gubeiqing.cn/tags/PHP/"/>
     
   </entry>
   
   <entry>
     <title>PHP实现类似题库抽题效果</title>
-    <link href="http://yoursite.com/2018/10/06/php05/"/>
-    <id>http://yoursite.com/2018/10/06/php05/</id>
+    <link href="https://www.gubeiqing.cn/2018/10/06/php05/"/>
+    <id>https://www.gubeiqing.cn/2018/10/06/php05/</id>
     <published>2018-10-06T12:24:20.000Z</published>
     <updated>2019-10-04T04:12:38.470Z</updated>
     
@@ -433,17 +433,17 @@
     
     </summary>
     
-      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
+      <category term="PHP" scheme="https://www.gubeiqing.cn/categories/PHP/"/>
     
     
-      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+      <category term="PHP" scheme="https://www.gubeiqing.cn/tags/PHP/"/>
     
   </entry>
   
   <entry>
     <title>Access手工注入</title>
-    <link href="http://yoursite.com/2018/09/23/Access%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/"/>
-    <id>http://yoursite.com/2018/09/23/Access手工注入/</id>
+    <link href="https://www.gubeiqing.cn/2018/09/23/Access%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/"/>
+    <id>https://www.gubeiqing.cn/2018/09/23/Access手工注入/</id>
     <published>2018-09-23T07:40:30.000Z</published>
     <updated>2019-10-04T04:15:24.256Z</updated>
     
@@ -459,19 +459,19 @@
     
     </summary>
     
-      <category term="安全" scheme="http://yoursite.com/categories/%E5%AE%89%E5%85%A8/"/>
+      <category term="安全" scheme="https://www.gubeiqing.cn/categories/%E5%AE%89%E5%85%A8/"/>
     
     
-      <category term="安全" scheme="http://yoursite.com/tags/%E5%AE%89%E5%85%A8/"/>
+      <category term="安全" scheme="https://www.gubeiqing.cn/tags/%E5%AE%89%E5%85%A8/"/>
     
-      <category term="CTF" scheme="http://yoursite.com/tags/CTF/"/>
+      <category term="CTF" scheme="https://www.gubeiqing.cn/tags/CTF/"/>
     
   </entry>
   
   <entry>
     <title>外部调用类的私有属性</title>
-    <link href="http://yoursite.com/2018/09/23/php04/"/>
-    <id>http://yoursite.com/2018/09/23/php04/</id>
+    <link href="https://www.gubeiqing.cn/2018/09/23/php04/"/>
+    <id>https://www.gubeiqing.cn/2018/09/23/php04/</id>
     <published>2018-09-23T07:37:26.000Z</published>
     <updated>2019-10-04T04:12:31.736Z</updated>
     
@@ -486,17 +486,17 @@
     
     </summary>
     
-      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
+      <category term="PHP" scheme="https://www.gubeiqing.cn/categories/PHP/"/>
     
     
-      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+      <category term="PHP" scheme="https://www.gubeiqing.cn/tags/PHP/"/>
     
   </entry>
   
   <entry>
     <title>OSPF单区域配置</title>
-    <link href="http://yoursite.com/2018/09/23/router06/"/>
-    <id>http://yoursite.com/2018/09/23/router06/</id>
+    <link href="https://www.gubeiqing.cn/2018/09/23/router06/"/>
+    <id>https://www.gubeiqing.cn/2018/09/23/router06/</id>
     <published>2018-09-23T07:31:15.000Z</published>
     <updated>2019-08-21T02:46:38.183Z</updated>
     
@@ -508,17 +508,17 @@
     
     </summary>
     
-      <category term="路由交换" scheme="http://yoursite.com/categories/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/"/>
+      <category term="路由交换" scheme="https://www.gubeiqing.cn/categories/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/"/>
     
     
-      <category term="路由交换" scheme="http://yoursite.com/tags/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/"/>
+      <category term="路由交换" scheme="https://www.gubeiqing.cn/tags/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/"/>
     
   </entry>
   
   <entry>
     <title>静态路由配置</title>
-    <link href="http://yoursite.com/2018/09/19/router05/"/>
-    <id>http://yoursite.com/2018/09/19/router05/</id>
+    <link href="https://www.gubeiqing.cn/2018/09/19/router05/"/>
+    <id>https://www.gubeiqing.cn/2018/09/19/router05/</id>
     <published>2018-09-19T10:36:48.000Z</published>
     <updated>2019-08-21T02:46:34.839Z</updated>
     
@@ -535,10 +535,10 @@
     
     </summary>
     
-      <category term="路由交换" scheme="http://yoursite.com/categories/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/"/>
+      <category term="路由交换" scheme="https://www.gubeiqing.cn/categories/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/"/>
     
     
-      <category term="路由交换" scheme="http://yoursite.com/tags/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/"/>
+      <category term="路由交换" scheme="https://www.gubeiqing.cn/tags/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/"/>
     
   </entry>
   
