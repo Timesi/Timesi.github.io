@@ -110,33 +110,6 @@
     
     
     <entry>
-      <title>CTF-SQL注入1</title>
-      <link href="/2018/10/08/CTF-SQL1/"/>
-      <url>/2018/10/08/CTF-SQL1/</url>
-      
-        <content type="html"><![CDATA[<p>题目<br><img alt data-src="https://image.3001.net/images/20190615/15605755361556.jpg" class="lozad"></p><p>访问题目网址<br><img alt data-src="https://image.3001.net/images/20190615/15605756298441.jpg" class="lozad"></p><p>先查看一下源码<br><img alt data-src="https://image.3001.net/images/20190615/15605756914304.jpg" class="lozad"></p><p>仔细分析一下核心源码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if($_POST[user] &amp;&amp; $_POST[pass]) &#123;      //判断user和pass两个变量不为空</span><br><span class="line">mysql_connect(SAE_MYSQL_HOST_M . &apos;:&apos; . SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);        //连接数据库</span><br><span class="line">  mysql_select_db(SAE_MYSQL_DB);    //选择要使用的库</span><br><span class="line">  $user = trim($_POST[user]);       //去除输入的user变量两侧的空白字符</span><br><span class="line">  $pass = md5(trim($_POST[pass]));  //去除pass变量两侧空白字符再进行md5加密</span><br><span class="line">  $sql=&quot;select user from ctf where (user=&apos;&quot;.$user.&quot;&apos;) and (pw=&apos;&quot;.$pass.&quot;&apos;)&quot;;    //根据输入的user和pass构造查询语句</span><br><span class="line">    echo &apos;&lt;/br&gt;&apos;.$sql;  //回显查找语句</span><br><span class="line">  $query = mysql_fetch_array(mysql_query($sql));    //使用构造的查询语句查询数据库并返回结果集</span><br><span class="line">  if($query[user]==&quot;admin&quot;) &#123;</span><br><span class="line">      echo &quot;&lt;p&gt;Logged in! flag:******************** &lt;/p&gt;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  if($query[user] != &quot;admin&quot;) &#123;</span><br><span class="line">    echo(&quot;&lt;p&gt;You are not admin!&lt;/p&gt;&quot;);</span><br><span class="line">  &#125;         //判断结果集中的user参数对应的值是不是admin，如果是返回flag，不是则返回 You are not admin!</span><br><span class="line">&#125;</span><br><span class="line">echo $query[user];      //回显查询到的user值</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>通过分析源码知道了<code>user</code>的值为<code>admin</code>,因为sql查询语句里有and，必须and前后同时成立才可以查询，但是现在不知道<code>pass</code>对应的值，所以考虑能不能不判断pass，直接判断user，于是想到是不是可以将user判断语句闭合并注释后面的内容，这样就不会对pass进行判断，pass就直接输入<code>111</code>，于是构造下面的语句。<br><img alt data-src="https://image.3001.net/images/20190615/15605774891410.jpg" class="lozad"><br>这样的话查询语句就变成了</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user from ctf where (user=&apos;admin&apos;) #&apos;) and (pw=&apos;111&apos;)</span><br></pre></td></tr></table></figure><p>尝试提交看看会不会返回flag。<br><img alt data-src="https://image.3001.net/images/20190615/15605783011325.jpg" class="lozad"><br>成功拿到flag</p><blockquote><p>补充：Mysql的注释语句有三种<br>1./**/<br>注释一段内容，这里明显不适用。<br>2.–<br>注释– 后的语句直到行尾，注意这里的–后面要有一个空格，但是题目中使用了trim()函数去除空格，所以也不适用。<br>3.#<br>注释#后的语句直到行尾。</p></blockquote>]]></content>
-      
-      
-      <categories>
-          
-          <category> CTF </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> CTF </tag>
-            
-            <tag> MySQL </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>CTF-SQL注入2</title>
       <link href="/2018/10/08/CTF-SQL%E6%B3%A8%E5%85%A52/"/>
       <url>/2018/10/08/CTF-SQL%E6%B3%A8%E5%85%A52/</url>
@@ -210,6 +183,33 @@
             <tag> Cloud </tag>
             
             <tag> 虚拟化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CTF-SQL注入1</title>
+      <link href="/2018/10/08/CTF-SQL1/"/>
+      <url>/2018/10/08/CTF-SQL1/</url>
+      
+        <content type="html"><![CDATA[<p>题目<br><img alt data-src="https://image.3001.net/images/20190615/15605755361556.jpg" class="lozad"></p><p>访问题目网址<br><img alt data-src="https://image.3001.net/images/20190615/15605756298441.jpg" class="lozad"></p><p>先查看一下源码<br><img alt data-src="https://image.3001.net/images/20190615/15605756914304.jpg" class="lozad"></p><p>仔细分析一下核心源码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if($_POST[user] &amp;&amp; $_POST[pass]) &#123;      //判断user和pass两个变量不为空</span><br><span class="line">mysql_connect(SAE_MYSQL_HOST_M . &apos;:&apos; . SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);        //连接数据库</span><br><span class="line">  mysql_select_db(SAE_MYSQL_DB);    //选择要使用的库</span><br><span class="line">  $user = trim($_POST[user]);       //去除输入的user变量两侧的空白字符</span><br><span class="line">  $pass = md5(trim($_POST[pass]));  //去除pass变量两侧空白字符再进行md5加密</span><br><span class="line">  $sql=&quot;select user from ctf where (user=&apos;&quot;.$user.&quot;&apos;) and (pw=&apos;&quot;.$pass.&quot;&apos;)&quot;;    //根据输入的user和pass构造查询语句</span><br><span class="line">    echo &apos;&lt;/br&gt;&apos;.$sql;  //回显查找语句</span><br><span class="line">  $query = mysql_fetch_array(mysql_query($sql));    //使用构造的查询语句查询数据库并返回结果集</span><br><span class="line">  if($query[user]==&quot;admin&quot;) &#123;</span><br><span class="line">      echo &quot;&lt;p&gt;Logged in! flag:******************** &lt;/p&gt;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  if($query[user] != &quot;admin&quot;) &#123;</span><br><span class="line">    echo(&quot;&lt;p&gt;You are not admin!&lt;/p&gt;&quot;);</span><br><span class="line">  &#125;         //判断结果集中的user参数对应的值是不是admin，如果是返回flag，不是则返回 You are not admin!</span><br><span class="line">&#125;</span><br><span class="line">echo $query[user];      //回显查询到的user值</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>通过分析源码知道了<code>user</code>的值为<code>admin</code>,因为sql查询语句里有and，必须and前后同时成立才可以查询，但是现在不知道<code>pass</code>对应的值，所以考虑能不能不判断pass，直接判断user，于是想到是不是可以将user判断语句闭合并注释后面的内容，这样就不会对pass进行判断，pass就直接输入<code>111</code>，于是构造下面的语句。<br><img alt data-src="https://image.3001.net/images/20190615/15605774891410.jpg" class="lozad"><br>这样的话查询语句就变成了</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user from ctf where (user=&apos;admin&apos;) #&apos;) and (pw=&apos;111&apos;)</span><br></pre></td></tr></table></figure><p>尝试提交看看会不会返回flag。<br><img alt data-src="https://image.3001.net/images/20190615/15605783011325.jpg" class="lozad"><br>成功拿到flag</p><blockquote><p>补充：Mysql的注释语句有三种<br>1./**/<br>注释一段内容，这里明显不适用。<br>2.–<br>注释– 后的语句直到行尾，注意这里的–后面要有一个空格，但是题目中使用了trim()函数去除空格，所以也不适用。<br>3.#<br>注释#后的语句直到行尾。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> MySQL </tag>
             
         </tags>
       
@@ -1314,11 +1314,11 @@
     
     
     <entry>
-      <title></title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
-        <content type="html"><![CDATA[<blockquote><p>关于顾北清</p></blockquote><p>ID:顾北清<br>取自”顾北清歌寒”，谜一般的断句所以有了这个ID。<br>目前是一名大三在校生，坐标南京，欢迎技术交流！</p><blockquote><p>关于拔萝卜小队</p></blockquote><p>这是两个CTF爱好者无聊的产物。<br>目前成员只有两个WEB方向的菜鸡。<br>欢迎各路大佬加入我们（群号：805432854），疯狂暗示大佬带带我们。</p><blockquote><p>关于这个博客</p></blockquote><p>我是从2018年4月基于Hexo开始维护这个个人博客，记录的内容大都是自己比较感兴趣的东西（一些实验和问题，还有一些CTF解题思路，虽然我是个菜鸡）,另外最重要的一点就是技术这个东西，分享才会推动进步！</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -1336,11 +1336,11 @@
     
     
     <entry>
-      <title>标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title></title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<blockquote><p>关于顾北清</p></blockquote><p>ID:顾北清<br>取自”顾北清歌寒”，谜一般的断句所以有了这个ID。<br>目前是一名大三在校生，坐标南京，欢迎技术交流！</p><blockquote><p>关于拔萝卜小队</p></blockquote><p>这是两个CTF爱好者无聊的产物。<br>目前成员只有两个WEB方向的菜鸡。<br>欢迎各路大佬加入我们（群号：805432854），疯狂暗示大佬带带我们。</p><blockquote><p>关于这个博客</p></blockquote><p>我是从2018年4月基于Hexo开始维护这个个人博客，记录的内容大都是自己比较感兴趣的东西（一些实验和问题，还有一些CTF解题思路，虽然我是个菜鸡）,另外最重要的一点就是技术这个东西，分享才会推动进步！</p>]]></content>
       
     </entry>
     
