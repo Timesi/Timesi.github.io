@@ -110,33 +110,6 @@
     
     
     <entry>
-      <title>KVM使用</title>
-      <link href="/2018/10/08/cloud03/"/>
-      <url>/2018/10/08/cloud03/</url>
-      
-        <content type="html"><![CDATA[<p><strong>这里使用的是Ubuntu18.04桌面版虚拟机</strong><br>关于KVM可以看一下我<a href="https://www.cnblogs.com/Timesi/p/9565456.html" target="_blank" rel="noopener">之前的博客</a>,有一些简单的介绍。<br>1.在打开虚拟机之前先开启此虚拟机的虚拟化功能。<br><img alt data-src="https://image.3001.net/images/20181123/15429714916274.jpg" class="lozad"><br>2.安装<code>KVM</code>及其依赖项</p><pre><code>wy@wy-virtual-machine:~$ sudo apt install qemu qemu-kvm libvirt-bin bridge-utils  virt-manager</code></pre><p>3.安装完成后，启用<code>libvirtd服务</code>(默认是开启的)</p><pre><code>wy@wy-virtual-machine:~$ sudo service libvirtd startwy@wy-virtual-machine:~$ sudo update-rc.d libvirtd enable</code></pre><p>4.启动之后查看一下<code>libvirtd服务</code>的运行状态</p><pre><code>wy@wy-virtual-machine:~$ service libvirtd status● libvirtd.service - Virtualization daemonLoaded: loaded (/lib/systemd/system/libvirtd.service; enabled; vendor preset:Active: active (running) since Tue 2018-09-18 18:44:55 CST; 1min 56s ago    Docs: man:libvirtd(8)        https://libvirt.orgMain PID: 6006 (libvirtd)    Tasks: 19 (limit: 32768)CGroup: /system.slice/libvirtd.service        ├─6006 /usr/sbin/libvirtd        ├─6701 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default        └─6702 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default9月 18 18:44:55 wy-virtual-machine systemd[1]: Started Virtualization daemon.9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: started, version 2.79 cachesiz9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: compile time options: IPv6 GNU9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, IP range 192.168.129月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, sockets bound exclu9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: reading /etc/resolv.conf9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: using nameserver 127.0.0.53#539月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /etc/hosts - 7 addresses9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /var/lib/libvirt/dnsmasq/9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: read /var/lib/libvirt/dns</code></pre><p>可以看到正在运行。<br>到此<code>KVM</code>安装完成。</p><hr><p>接着就可以创建虚拟机了，首先通过<code>virt-manager</code>命令打开<code>Virtual Machine Manager</code>。<br><img alt data-src="https://image.3001.net/images/20181123/15429714932785.jpg" class="lozad"><br>然后开始新建虚拟机。<br><img alt data-src="https://image.3001.net/images/20181123/15429714952486.jpg" class="lozad"><br>选择镜像<br><img alt data-src="https://image.3001.net/images/20181123/15429714972102.jpg" class="lozad"><br>配置虚拟机规格<br><img alt data-src="https://image.3001.net/images/20181123/15429714981193.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715015555.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715037544.jpg" class="lozad"><br>接着创建<br><img alt data-src="https://image.3001.net/images/20181123/15429715045047.jpg" class="lozad"><br>然后就好啦。<br><img alt data-src="https://image.3001.net/images/20181123/15429715062667.jpg" class="lozad"></p><ul><li><input checked disabled type="checkbox"> 虚拟机中安装虚拟机达成</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Cloud </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Cloud </tag>
-            
-            <tag> 虚拟化 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>CTF-SQL注入1</title>
       <link href="/2018/10/08/CTF-SQL1/"/>
       <url>/2018/10/08/CTF-SQL1/</url>
@@ -210,6 +183,33 @@
             <tag> CTF </tag>
             
             <tag> PHP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>KVM使用</title>
+      <link href="/2018/10/08/cloud03/"/>
+      <url>/2018/10/08/cloud03/</url>
+      
+        <content type="html"><![CDATA[<p><strong>这里使用的是Ubuntu18.04桌面版虚拟机</strong><br>关于KVM可以看一下我<a href="https://www.cnblogs.com/Timesi/p/9565456.html" target="_blank" rel="noopener">之前的博客</a>,有一些简单的介绍。<br>1.在打开虚拟机之前先开启此虚拟机的虚拟化功能。<br><img alt data-src="https://image.3001.net/images/20181123/15429714916274.jpg" class="lozad"><br>2.安装<code>KVM</code>及其依赖项</p><pre><code>wy@wy-virtual-machine:~$ sudo apt install qemu qemu-kvm libvirt-bin bridge-utils  virt-manager</code></pre><p>3.安装完成后，启用<code>libvirtd服务</code>(默认是开启的)</p><pre><code>wy@wy-virtual-machine:~$ sudo service libvirtd startwy@wy-virtual-machine:~$ sudo update-rc.d libvirtd enable</code></pre><p>4.启动之后查看一下<code>libvirtd服务</code>的运行状态</p><pre><code>wy@wy-virtual-machine:~$ service libvirtd status● libvirtd.service - Virtualization daemonLoaded: loaded (/lib/systemd/system/libvirtd.service; enabled; vendor preset:Active: active (running) since Tue 2018-09-18 18:44:55 CST; 1min 56s ago    Docs: man:libvirtd(8)        https://libvirt.orgMain PID: 6006 (libvirtd)    Tasks: 19 (limit: 32768)CGroup: /system.slice/libvirtd.service        ├─6006 /usr/sbin/libvirtd        ├─6701 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default        └─6702 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default9月 18 18:44:55 wy-virtual-machine systemd[1]: Started Virtualization daemon.9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: started, version 2.79 cachesiz9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: compile time options: IPv6 GNU9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, IP range 192.168.129月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, sockets bound exclu9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: reading /etc/resolv.conf9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: using nameserver 127.0.0.53#539月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /etc/hosts - 7 addresses9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /var/lib/libvirt/dnsmasq/9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: read /var/lib/libvirt/dns</code></pre><p>可以看到正在运行。<br>到此<code>KVM</code>安装完成。</p><hr><p>接着就可以创建虚拟机了，首先通过<code>virt-manager</code>命令打开<code>Virtual Machine Manager</code>。<br><img alt data-src="https://image.3001.net/images/20181123/15429714932785.jpg" class="lozad"><br>然后开始新建虚拟机。<br><img alt data-src="https://image.3001.net/images/20181123/15429714952486.jpg" class="lozad"><br>选择镜像<br><img alt data-src="https://image.3001.net/images/20181123/15429714972102.jpg" class="lozad"><br>配置虚拟机规格<br><img alt data-src="https://image.3001.net/images/20181123/15429714981193.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715015555.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715037544.jpg" class="lozad"><br>接着创建<br><img alt data-src="https://image.3001.net/images/20181123/15429715045047.jpg" class="lozad"><br>然后就好啦。<br><img alt data-src="https://image.3001.net/images/20181123/15429715062667.jpg" class="lozad"></p><ul><li><input checked disabled type="checkbox"> 虚拟机中安装虚拟机达成</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Cloud </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Cloud </tag>
+            
+            <tag> 虚拟化 </tag>
             
         </tags>
       
@@ -1310,5 +1310,40 @@
     
     
   
+  
+    
+    
+    <entry>
+      <title></title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>关于顾北清</p></blockquote><p>ID:顾北清<br>取自”顾北清歌寒”，谜一般的断句所以有了这个ID。<br>目前是一名大三在校生，坐标南京，欢迎技术交流！</p><blockquote><p>关于拔萝卜小队</p></blockquote><p>这是两个CTF爱好者无聊的产物。<br>目前成员只有两个WEB方向的菜鸡。<br>欢迎各路大佬加入我们（群号：805432854），疯狂暗示大佬带带我们。</p><blockquote><p>关于这个博客</p></blockquote><p>我是从2018年4月基于Hexo开始维护这个个人博客，记录的内容大都是自己比较感兴趣的东西（一些实验和问题，还有一些CTF解题思路，虽然我是个菜鸡）,另外最重要的一点就是技术这个东西，分享才会推动进步！</p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>友链</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
   
 </search>
