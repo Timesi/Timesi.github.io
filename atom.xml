@@ -119,9 +119,36 @@
       <category term="Cloud" scheme="https://www.gubeiqing.cn/categories/Cloud/"/>
     
     
+      <category term="Cloud" scheme="https://www.gubeiqing.cn/tags/Cloud/"/>
+    
       <category term="Docker" scheme="https://www.gubeiqing.cn/tags/Docker/"/>
     
+  </entry>
+  
+  <entry>
+    <title>KVM使用</title>
+    <link href="https://www.gubeiqing.cn/2018/10/08/cloud03/"/>
+    <id>https://www.gubeiqing.cn/2018/10/08/cloud03/</id>
+    <published>2018-10-08T06:57:06.000Z</published>
+    <updated>2019-10-04T04:05:18.713Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>这里使用的是Ubuntu18.04桌面版虚拟机</strong><br>关于KVM可以看一下我<a href="https://www.cnblogs.com/Timesi/p/9565456.html" target="_blank" rel="noopener">之前的博客</a>,有一些简单的介绍。<br>1.在打开虚拟机之前先开启此虚拟机的虚拟化功能。<br><img alt data-src="https://image.3001.net/images/20181123/15429714916274.jpg" class="lozad"><br>2.安装<code>KVM</code>及其依赖项</p><pre><code>wy@wy-virtual-machine:~$ sudo apt install qemu qemu-kvm libvirt-bin bridge-utils  virt-manager</code></pre><p>3.安装完成后，启用<code>libvirtd服务</code>(默认是开启的)</p><pre><code>wy@wy-virtual-machine:~$ sudo service libvirtd startwy@wy-virtual-machine:~$ sudo update-rc.d libvirtd enable</code></pre><p>4.启动之后查看一下<code>libvirtd服务</code>的运行状态</p><pre><code>wy@wy-virtual-machine:~$ service libvirtd status● libvirtd.service - Virtualization daemonLoaded: loaded (/lib/systemd/system/libvirtd.service; enabled; vendor preset:Active: active (running) since Tue 2018-09-18 18:44:55 CST; 1min 56s ago    Docs: man:libvirtd(8)        https://libvirt.orgMain PID: 6006 (libvirtd)    Tasks: 19 (limit: 32768)CGroup: /system.slice/libvirtd.service        ├─6006 /usr/sbin/libvirtd        ├─6701 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default        └─6702 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default9月 18 18:44:55 wy-virtual-machine systemd[1]: Started Virtualization daemon.9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: started, version 2.79 cachesiz9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: compile time options: IPv6 GNU9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, IP range 192.168.129月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, sockets bound exclu9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: reading /etc/resolv.conf9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: using nameserver 127.0.0.53#539月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /etc/hosts - 7 addresses9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /var/lib/libvirt/dnsmasq/9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: read /var/lib/libvirt/dns</code></pre><p>可以看到正在运行。<br>到此<code>KVM</code>安装完成。</p><hr><p>接着就可以创建虚拟机了，首先通过<code>virt-manager</code>命令打开<code>Virtual Machine Manager</code>。<br><img alt data-src="https://image.3001.net/images/20181123/15429714932785.jpg" class="lozad"><br>然后开始新建虚拟机。<br><img alt data-src="https://image.3001.net/images/20181123/15429714952486.jpg" class="lozad"><br>选择镜像<br><img alt data-src="https://image.3001.net/images/20181123/15429714972102.jpg" class="lozad"><br>配置虚拟机规格<br><img alt data-src="https://image.3001.net/images/20181123/15429714981193.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715015555.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715037544.jpg" class="lozad"><br>接着创建<br><img alt data-src="https://image.3001.net/images/20181123/15429715045047.jpg" class="lozad"><br>然后就好啦。<br><img alt data-src="https://image.3001.net/images/20181123/15429715062667.jpg" class="lozad"></p><ul><li><input checked disabled type="checkbox"> 虚拟机中安装虚拟机达成</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;这里使用的是Ubuntu18.04桌面版虚拟机&lt;/strong&gt;&lt;br&gt;关于KVM可以看一下我&lt;a href=&quot;https://www.cnblogs.com/Timesi/p/9565456.html&quot; target=&quot;_blank&quot; rel=&quot;noope
+      
+    
+    </summary>
+    
+      <category term="Cloud" scheme="https://www.gubeiqing.cn/categories/Cloud/"/>
+    
+    
       <category term="Cloud" scheme="https://www.gubeiqing.cn/tags/Cloud/"/>
+    
+      <category term="虚拟化" scheme="https://www.gubeiqing.cn/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
@@ -205,33 +232,6 @@
       <category term="CTF" scheme="https://www.gubeiqing.cn/tags/CTF/"/>
     
       <category term="PHP" scheme="https://www.gubeiqing.cn/tags/PHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>KVM使用</title>
-    <link href="https://www.gubeiqing.cn/2018/10/08/cloud03/"/>
-    <id>https://www.gubeiqing.cn/2018/10/08/cloud03/</id>
-    <published>2018-10-08T06:57:06.000Z</published>
-    <updated>2019-10-04T04:05:18.713Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>这里使用的是Ubuntu18.04桌面版虚拟机</strong><br>关于KVM可以看一下我<a href="https://www.cnblogs.com/Timesi/p/9565456.html" target="_blank" rel="noopener">之前的博客</a>,有一些简单的介绍。<br>1.在打开虚拟机之前先开启此虚拟机的虚拟化功能。<br><img alt data-src="https://image.3001.net/images/20181123/15429714916274.jpg" class="lozad"><br>2.安装<code>KVM</code>及其依赖项</p><pre><code>wy@wy-virtual-machine:~$ sudo apt install qemu qemu-kvm libvirt-bin bridge-utils  virt-manager</code></pre><p>3.安装完成后，启用<code>libvirtd服务</code>(默认是开启的)</p><pre><code>wy@wy-virtual-machine:~$ sudo service libvirtd startwy@wy-virtual-machine:~$ sudo update-rc.d libvirtd enable</code></pre><p>4.启动之后查看一下<code>libvirtd服务</code>的运行状态</p><pre><code>wy@wy-virtual-machine:~$ service libvirtd status● libvirtd.service - Virtualization daemonLoaded: loaded (/lib/systemd/system/libvirtd.service; enabled; vendor preset:Active: active (running) since Tue 2018-09-18 18:44:55 CST; 1min 56s ago    Docs: man:libvirtd(8)        https://libvirt.orgMain PID: 6006 (libvirtd)    Tasks: 19 (limit: 32768)CGroup: /system.slice/libvirtd.service        ├─6006 /usr/sbin/libvirtd        ├─6701 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default        └─6702 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default9月 18 18:44:55 wy-virtual-machine systemd[1]: Started Virtualization daemon.9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: started, version 2.79 cachesiz9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: compile time options: IPv6 GNU9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, IP range 192.168.129月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, sockets bound exclu9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: reading /etc/resolv.conf9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: using nameserver 127.0.0.53#539月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /etc/hosts - 7 addresses9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /var/lib/libvirt/dnsmasq/9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: read /var/lib/libvirt/dns</code></pre><p>可以看到正在运行。<br>到此<code>KVM</code>安装完成。</p><hr><p>接着就可以创建虚拟机了，首先通过<code>virt-manager</code>命令打开<code>Virtual Machine Manager</code>。<br><img alt data-src="https://image.3001.net/images/20181123/15429714932785.jpg" class="lozad"><br>然后开始新建虚拟机。<br><img alt data-src="https://image.3001.net/images/20181123/15429714952486.jpg" class="lozad"><br>选择镜像<br><img alt data-src="https://image.3001.net/images/20181123/15429714972102.jpg" class="lozad"><br>配置虚拟机规格<br><img alt data-src="https://image.3001.net/images/20181123/15429714981193.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715015555.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715037544.jpg" class="lozad"><br>接着创建<br><img alt data-src="https://image.3001.net/images/20181123/15429715045047.jpg" class="lozad"><br>然后就好啦。<br><img alt data-src="https://image.3001.net/images/20181123/15429715062667.jpg" class="lozad"></p><ul><li><input checked disabled type="checkbox"> 虚拟机中安装虚拟机达成</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;strong&gt;这里使用的是Ubuntu18.04桌面版虚拟机&lt;/strong&gt;&lt;br&gt;关于KVM可以看一下我&lt;a href=&quot;https://www.cnblogs.com/Timesi/p/9565456.html&quot; target=&quot;_blank&quot; rel=&quot;noope
-      
-    
-    </summary>
-    
-      <category term="Cloud" scheme="https://www.gubeiqing.cn/categories/Cloud/"/>
-    
-    
-      <category term="Cloud" scheme="https://www.gubeiqing.cn/tags/Cloud/"/>
-    
-      <category term="虚拟化" scheme="https://www.gubeiqing.cn/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     
   </entry>
   
@@ -472,9 +472,9 @@
       <category term="安全" scheme="https://www.gubeiqing.cn/categories/%E5%AE%89%E5%85%A8/"/>
     
     
-      <category term="CTF" scheme="https://www.gubeiqing.cn/tags/CTF/"/>
-    
       <category term="安全" scheme="https://www.gubeiqing.cn/tags/%E5%AE%89%E5%85%A8/"/>
+    
+      <category term="CTF" scheme="https://www.gubeiqing.cn/tags/CTF/"/>
     
   </entry>
   
