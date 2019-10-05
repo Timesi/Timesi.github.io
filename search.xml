@@ -99,9 +99,36 @@
       
         <tags>
             
+            <tag> Docker </tag>
+            
             <tag> Cloud </tag>
             
-            <tag> Docker </tag>
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CTF-SQL注入1</title>
+      <link href="/2018/10/08/CTF-SQL1/"/>
+      <url>/2018/10/08/CTF-SQL1/</url>
+      
+        <content type="html"><![CDATA[<p>题目<br><img alt data-src="https://image.3001.net/images/20190615/15605755361556.jpg" class="lozad"></p><p>访问题目网址<br><img alt data-src="https://image.3001.net/images/20190615/15605756298441.jpg" class="lozad"></p><p>先查看一下源码<br><img alt data-src="https://image.3001.net/images/20190615/15605756914304.jpg" class="lozad"></p><p>仔细分析一下核心源码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if($_POST[user] &amp;&amp; $_POST[pass]) &#123;      //判断user和pass两个变量不为空</span><br><span class="line">mysql_connect(SAE_MYSQL_HOST_M . &apos;:&apos; . SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);        //连接数据库</span><br><span class="line">  mysql_select_db(SAE_MYSQL_DB);    //选择要使用的库</span><br><span class="line">  $user = trim($_POST[user]);       //去除输入的user变量两侧的空白字符</span><br><span class="line">  $pass = md5(trim($_POST[pass]));  //去除pass变量两侧空白字符再进行md5加密</span><br><span class="line">  $sql=&quot;select user from ctf where (user=&apos;&quot;.$user.&quot;&apos;) and (pw=&apos;&quot;.$pass.&quot;&apos;)&quot;;    //根据输入的user和pass构造查询语句</span><br><span class="line">    echo &apos;&lt;/br&gt;&apos;.$sql;  //回显查找语句</span><br><span class="line">  $query = mysql_fetch_array(mysql_query($sql));    //使用构造的查询语句查询数据库并返回结果集</span><br><span class="line">  if($query[user]==&quot;admin&quot;) &#123;</span><br><span class="line">      echo &quot;&lt;p&gt;Logged in! flag:******************** &lt;/p&gt;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  if($query[user] != &quot;admin&quot;) &#123;</span><br><span class="line">    echo(&quot;&lt;p&gt;You are not admin!&lt;/p&gt;&quot;);</span><br><span class="line">  &#125;         //判断结果集中的user参数对应的值是不是admin，如果是返回flag，不是则返回 You are not admin!</span><br><span class="line">&#125;</span><br><span class="line">echo $query[user];      //回显查询到的user值</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>通过分析源码知道了<code>user</code>的值为<code>admin</code>,因为sql查询语句里有and，必须and前后同时成立才可以查询，但是现在不知道<code>pass</code>对应的值，所以考虑能不能不判断pass，直接判断user，于是想到是不是可以将user判断语句闭合并注释后面的内容，这样就不会对pass进行判断，pass就直接输入<code>111</code>，于是构造下面的语句。<br><img alt data-src="https://image.3001.net/images/20190615/15605774891410.jpg" class="lozad"><br>这样的话查询语句就变成了</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user from ctf where (user=&apos;admin&apos;) #&apos;) and (pw=&apos;111&apos;)</span><br></pre></td></tr></table></figure><p>尝试提交看看会不会返回flag。<br><img alt data-src="https://image.3001.net/images/20190615/15605783011325.jpg" class="lozad"><br>成功拿到flag</p><blockquote><p>补充：Mysql的注释语句有三种<br>1./**/<br>注释一段内容，这里明显不适用。<br>2.–<br>注释– 后的语句直到行尾，注意这里的–后面要有一个空格，但是题目中使用了trim()函数去除空格，所以也不适用。<br>3.#<br>注释#后的语句直到行尾。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> MySQL </tag>
             
         </tags>
       
@@ -137,33 +164,6 @@
     
     
     <entry>
-      <title>KVM使用</title>
-      <link href="/2018/10/08/cloud03/"/>
-      <url>/2018/10/08/cloud03/</url>
-      
-        <content type="html"><![CDATA[<p><strong>这里使用的是Ubuntu18.04桌面版虚拟机</strong><br>关于KVM可以看一下我<a href="https://www.cnblogs.com/Timesi/p/9565456.html" target="_blank" rel="noopener">之前的博客</a>,有一些简单的介绍。<br>1.在打开虚拟机之前先开启此虚拟机的虚拟化功能。<br><img alt data-src="https://image.3001.net/images/20181123/15429714916274.jpg" class="lozad"><br>2.安装<code>KVM</code>及其依赖项</p><pre><code>wy@wy-virtual-machine:~$ sudo apt install qemu qemu-kvm libvirt-bin bridge-utils  virt-manager</code></pre><p>3.安装完成后，启用<code>libvirtd服务</code>(默认是开启的)</p><pre><code>wy@wy-virtual-machine:~$ sudo service libvirtd startwy@wy-virtual-machine:~$ sudo update-rc.d libvirtd enable</code></pre><p>4.启动之后查看一下<code>libvirtd服务</code>的运行状态</p><pre><code>wy@wy-virtual-machine:~$ service libvirtd status● libvirtd.service - Virtualization daemonLoaded: loaded (/lib/systemd/system/libvirtd.service; enabled; vendor preset:Active: active (running) since Tue 2018-09-18 18:44:55 CST; 1min 56s ago    Docs: man:libvirtd(8)        https://libvirt.orgMain PID: 6006 (libvirtd)    Tasks: 19 (limit: 32768)CGroup: /system.slice/libvirtd.service        ├─6006 /usr/sbin/libvirtd        ├─6701 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default        └─6702 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default9月 18 18:44:55 wy-virtual-machine systemd[1]: Started Virtualization daemon.9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: started, version 2.79 cachesiz9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: compile time options: IPv6 GNU9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, IP range 192.168.129月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, sockets bound exclu9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: reading /etc/resolv.conf9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: using nameserver 127.0.0.53#539月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /etc/hosts - 7 addresses9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /var/lib/libvirt/dnsmasq/9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: read /var/lib/libvirt/dns</code></pre><p>可以看到正在运行。<br>到此<code>KVM</code>安装完成。</p><hr><p>接着就可以创建虚拟机了，首先通过<code>virt-manager</code>命令打开<code>Virtual Machine Manager</code>。<br><img alt data-src="https://image.3001.net/images/20181123/15429714932785.jpg" class="lozad"><br>然后开始新建虚拟机。<br><img alt data-src="https://image.3001.net/images/20181123/15429714952486.jpg" class="lozad"><br>选择镜像<br><img alt data-src="https://image.3001.net/images/20181123/15429714972102.jpg" class="lozad"><br>配置虚拟机规格<br><img alt data-src="https://image.3001.net/images/20181123/15429714981193.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715015555.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715037544.jpg" class="lozad"><br>接着创建<br><img alt data-src="https://image.3001.net/images/20181123/15429715045047.jpg" class="lozad"><br>然后就好啦。<br><img alt data-src="https://image.3001.net/images/20181123/15429715062667.jpg" class="lozad"></p><ul><li><input checked disabled type="checkbox"> 虚拟机中安装虚拟机达成</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Cloud </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Cloud </tag>
-            
-            <tag> 虚拟化 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>foreach函数</title>
       <link href="/2018/10/08/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/"/>
       <url>/2018/10/08/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/</url>
@@ -191,25 +191,25 @@
     
     
     <entry>
-      <title>CTF-SQL注入1</title>
-      <link href="/2018/10/08/CTF-SQL1/"/>
-      <url>/2018/10/08/CTF-SQL1/</url>
+      <title>KVM使用</title>
+      <link href="/2018/10/08/cloud03/"/>
+      <url>/2018/10/08/cloud03/</url>
       
-        <content type="html"><![CDATA[<p>题目<br><img alt data-src="https://image.3001.net/images/20190615/15605755361556.jpg" class="lozad"></p><p>访问题目网址<br><img alt data-src="https://image.3001.net/images/20190615/15605756298441.jpg" class="lozad"></p><p>先查看一下源码<br><img alt data-src="https://image.3001.net/images/20190615/15605756914304.jpg" class="lozad"></p><p>仔细分析一下核心源码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if($_POST[user] &amp;&amp; $_POST[pass]) &#123;      //判断user和pass两个变量不为空</span><br><span class="line">mysql_connect(SAE_MYSQL_HOST_M . &apos;:&apos; . SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);        //连接数据库</span><br><span class="line">  mysql_select_db(SAE_MYSQL_DB);    //选择要使用的库</span><br><span class="line">  $user = trim($_POST[user]);       //去除输入的user变量两侧的空白字符</span><br><span class="line">  $pass = md5(trim($_POST[pass]));  //去除pass变量两侧空白字符再进行md5加密</span><br><span class="line">  $sql=&quot;select user from ctf where (user=&apos;&quot;.$user.&quot;&apos;) and (pw=&apos;&quot;.$pass.&quot;&apos;)&quot;;    //根据输入的user和pass构造查询语句</span><br><span class="line">    echo &apos;&lt;/br&gt;&apos;.$sql;  //回显查找语句</span><br><span class="line">  $query = mysql_fetch_array(mysql_query($sql));    //使用构造的查询语句查询数据库并返回结果集</span><br><span class="line">  if($query[user]==&quot;admin&quot;) &#123;</span><br><span class="line">      echo &quot;&lt;p&gt;Logged in! flag:******************** &lt;/p&gt;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  if($query[user] != &quot;admin&quot;) &#123;</span><br><span class="line">    echo(&quot;&lt;p&gt;You are not admin!&lt;/p&gt;&quot;);</span><br><span class="line">  &#125;         //判断结果集中的user参数对应的值是不是admin，如果是返回flag，不是则返回 You are not admin!</span><br><span class="line">&#125;</span><br><span class="line">echo $query[user];      //回显查询到的user值</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>通过分析源码知道了<code>user</code>的值为<code>admin</code>,因为sql查询语句里有and，必须and前后同时成立才可以查询，但是现在不知道<code>pass</code>对应的值，所以考虑能不能不判断pass，直接判断user，于是想到是不是可以将user判断语句闭合并注释后面的内容，这样就不会对pass进行判断，pass就直接输入<code>111</code>，于是构造下面的语句。<br><img alt data-src="https://image.3001.net/images/20190615/15605774891410.jpg" class="lozad"><br>这样的话查询语句就变成了</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user from ctf where (user=&apos;admin&apos;) #&apos;) and (pw=&apos;111&apos;)</span><br></pre></td></tr></table></figure><p>尝试提交看看会不会返回flag。<br><img alt data-src="https://image.3001.net/images/20190615/15605783011325.jpg" class="lozad"><br>成功拿到flag</p><blockquote><p>补充：Mysql的注释语句有三种<br>1./**/<br>注释一段内容，这里明显不适用。<br>2.–<br>注释– 后的语句直到行尾，注意这里的–后面要有一个空格，但是题目中使用了trim()函数去除空格，所以也不适用。<br>3.#<br>注释#后的语句直到行尾。</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<p><strong>这里使用的是Ubuntu18.04桌面版虚拟机</strong><br>关于KVM可以看一下我<a href="https://www.cnblogs.com/Timesi/p/9565456.html" target="_blank" rel="noopener">之前的博客</a>,有一些简单的介绍。<br>1.在打开虚拟机之前先开启此虚拟机的虚拟化功能。<br><img alt data-src="https://image.3001.net/images/20181123/15429714916274.jpg" class="lozad"><br>2.安装<code>KVM</code>及其依赖项</p><pre><code>wy@wy-virtual-machine:~$ sudo apt install qemu qemu-kvm libvirt-bin bridge-utils  virt-manager</code></pre><p>3.安装完成后，启用<code>libvirtd服务</code>(默认是开启的)</p><pre><code>wy@wy-virtual-machine:~$ sudo service libvirtd startwy@wy-virtual-machine:~$ sudo update-rc.d libvirtd enable</code></pre><p>4.启动之后查看一下<code>libvirtd服务</code>的运行状态</p><pre><code>wy@wy-virtual-machine:~$ service libvirtd status● libvirtd.service - Virtualization daemonLoaded: loaded (/lib/systemd/system/libvirtd.service; enabled; vendor preset:Active: active (running) since Tue 2018-09-18 18:44:55 CST; 1min 56s ago    Docs: man:libvirtd(8)        https://libvirt.orgMain PID: 6006 (libvirtd)    Tasks: 19 (limit: 32768)CGroup: /system.slice/libvirtd.service        ├─6006 /usr/sbin/libvirtd        ├─6701 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default        └─6702 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default9月 18 18:44:55 wy-virtual-machine systemd[1]: Started Virtualization daemon.9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: started, version 2.79 cachesiz9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: compile time options: IPv6 GNU9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, IP range 192.168.129月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: DHCP, sockets bound exclu9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: reading /etc/resolv.conf9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: using nameserver 127.0.0.53#539月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /etc/hosts - 7 addresses9月 18 18:45:00 wy-virtual-machine dnsmasq[6701]: read /var/lib/libvirt/dnsmasq/9月 18 18:45:00 wy-virtual-machine dnsmasq-dhcp[6701]: read /var/lib/libvirt/dns</code></pre><p>可以看到正在运行。<br>到此<code>KVM</code>安装完成。</p><hr><p>接着就可以创建虚拟机了，首先通过<code>virt-manager</code>命令打开<code>Virtual Machine Manager</code>。<br><img alt data-src="https://image.3001.net/images/20181123/15429714932785.jpg" class="lozad"><br>然后开始新建虚拟机。<br><img alt data-src="https://image.3001.net/images/20181123/15429714952486.jpg" class="lozad"><br>选择镜像<br><img alt data-src="https://image.3001.net/images/20181123/15429714972102.jpg" class="lozad"><br>配置虚拟机规格<br><img alt data-src="https://image.3001.net/images/20181123/15429714981193.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715015555.jpg" class="lozad"><br><img alt data-src="https://image.3001.net/images/20181123/15429715037544.jpg" class="lozad"><br>接着创建<br><img alt data-src="https://image.3001.net/images/20181123/15429715045047.jpg" class="lozad"><br>然后就好啦。<br><img alt data-src="https://image.3001.net/images/20181123/15429715062667.jpg" class="lozad"></p><ul><li><input checked disabled type="checkbox"> 虚拟机中安装虚拟机达成</li></ul>]]></content>
       
       
       <categories>
           
-          <category> CTF </category>
+          <category> Cloud </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> CTF </tag>
+            <tag> Cloud </tag>
             
-            <tag> MySQL </tag>
+            <tag> 虚拟化 </tag>
             
         </tags>
       
@@ -438,9 +438,9 @@
       
         <tags>
             
-            <tag> 安全 </tag>
-            
             <tag> CTF </tag>
+            
+            <tag> 安全 </tag>
             
         </tags>
       
